@@ -11,6 +11,6 @@ Před zahájením práce si prosím přečtěte dokumenty **[CODING_STANDARDS](C
 ## 🚀 Jak začít
 Chcete-li projekt spustit na svém počítači, postupujte podle následujících kroků:
 
-1. **Klonejte repozitář**
+1. **Klonujte repozitář**
    ```bash
    git clone https://github.com/Vindeimi/PRG-projekt.git
