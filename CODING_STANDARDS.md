@@ -24,15 +24,29 @@
 
 ## 🚀 Commit zprávy
 - **Stručné a výstižné** (max 72 znaků v první větě).
-- **Prefixy**:
-  -     
-  -git commit -m "[Feature] Přidána kalkulace průměrné známky"
-  -git commit -m "[Fix] Opraven bug ve výpočtu absence"
-  -git commit -m "[Refactor] Přesunutí metody do jiné třídy"
-  -git commit -m "[Docs] Přidána pravidla pro Git workflow"
-  -git commit -m "[Style] Opraveny mezery a nesprávné názvy proměnných"
-  -git commit -m "[Test] Přidán test pro API komunikaci"
-  -git commit -m "[Chore] Aktualizace NuGet balíčků"
-  -git commit -m "[Perf] Optimalizována načítací doba seznamu"
-  -git commit -m "[Revert] Zrušení posledního PR kvůli chybám"
+- 
+### 🚀 Nejčastější typy commit zpráv:
+- **`[Feature]`** – Přidání nové funkce  
+- **`[Fix]`** – Oprava chyby nebo bugu  
+- **`[Refactor]`** – Změna kódu bez změny funkcionality  
+- **`[Docs]`** – Úprava dokumentace (`README.md`, `CONTRIBUTING.md` atd.)  
+- **`[Style]`** – Oprava formátování, mezery, lomítek – **žádná logická změna**  
+- **`[Test]`** – Přidání nebo úprava testů  
+- **`[Chore]`** – Údržba projektu (např. aktualizace knihoven)  
+- **`[Build]`** – Změny ve **sestavení projektu**, jako konfigurace nebo CI/CD  
+- **`[Perf]`** – Optimalizace výkonu  
+- **`[Revert]`** – Vrácení předchozí změny  
+
+### 📌 **Příklady použití:**
+```bash
+git commit -m "[Feature] Přidána kalkulace průměrné známky"
+git commit -m "[Fix] Opraven bug ve výpočtu absence"
+git commit -m "[Refactor] Přesunutí metody do jiné třídy"
+git commit -m "[Docs] Přidána pravidla pro Git workflow"
+git commit -m "[Style] Opraveny mezery a nesprávné názvy proměnných"
+git commit -m "[Test] Přidán test pro API komunikaci"
+git commit -m "[Chore] Aktualizace NuGet balíčků"
+git commit -m "[Perf] Optimalizována načítací doba seznamu"
+git commit -m "[Revert] Zrušení posledního PR kvůli chybám"
+
 
