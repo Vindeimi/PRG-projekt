@@ -1,7 +1,5 @@
 # Známky & Absence - PROJEKT
 
-# Projekt Kalkulačka známek a absence
-
 ## 📚 O projektu
 Tento projekt je zaměřen na vytvoření aplikace, která pomáhá studentům a učitelům sledovat známky a absenci. Aplikace využívá API z EduPage pro získání aktuálních informací o absencích a známkách.
 
