@@ -25,6 +25,7 @@
 ## 🚀 Commit zprávy
 - **Stručné a výstižné** (max 72 znaků v první větě).
 - **Prefixy**:
+  -     
   -git commit -m "[Feature] Přidána kalkulace průměrné známky"
   -git commit -m "[Fix] Opraven bug ve výpočtu absence"
   -git commit -m "[Refactor] Přesunutí metody do jiné třídy"
