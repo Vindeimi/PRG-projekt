@@ -25,3 +25,13 @@
 ## 🚀 Commit zprávy
 - **Stručné a výstižné** (max 72 znaků v první větě).
 - **Prefixy**
+  -git commit -m "[Feature] Přidána kalkulace průměrné známky"
+  -git commit -m "[Fix] Opraven bug ve výpočtu absence"
+  -git commit -m "[Refactor] Přesunutí metody do jiné třídy"
+  -git commit -m "[Docs] Přidána pravidla pro Git workflow"
+  -git commit -m "[Style] Opraveny mezery a nesprávné názvy proměnných"
+  -git commit -m "[Test] Přidán test pro API komunikaci"
+  -git commit -m "[Chore] Aktualizace NuGet balíčků"
+  -git commit -m "[Perf] Optimalizována načítací doba seznamu"
+  -git commit -m "[Revert] Zrušení posledního PR kvůli chybám"
+
