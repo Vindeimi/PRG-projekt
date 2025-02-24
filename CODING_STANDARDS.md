@@ -4,9 +4,11 @@
 - Hlavní větev je `master`, každý má svou vlastní větev (`sam`, `honza`, `pavel`).  
 - Po dokončení změn se dělá **Pull Request (PR)** do `master`.  
 
-⚠️ **[WARNING]** Nepřidávejte nové změny přímo do `master` – vždy použijte svou větev a PR!  
+> [!WARNING]  
+> Nepřidávejte nové změny přímo do `master` – vždy použijte svou větev a PR!  
 
-💡 **[TIP]** Pokud pracujete na větší změně, používejte menší commity a pravidelně pushujte.  
+> [!TIP]  
+> Pokud pracujete na větší změně, používejte menší commity a pravidelně pushujte.  
 
 ---
 
@@ -14,12 +16,14 @@
 - PR musí být schválen alespoň **jedním členem týmu**.  
 - Kód musí být přehledný a odpovídat stylu projektu.  
 
-📌 **[IMPORTANT]** Před odesláním PR si zkontrolujte:  
-✔️ Kód odpovídá našemu stylu  
-✔️ Změny jsou dobře zdokumentované  
-✔️ Projekt se správně sestaví  
+> [!IMPORTANT]  
+> Před odesláním PR si zkontrolujte:  
+> ✔️ Kód odpovídá našemu stylu  
+> ✔️ Změny jsou dobře zdokumentované  
+> ✔️ Projekt se správně sestaví  
 
-👀 **[TIP]** Pokud je PR větší, popište hlavní změny v popisu PR, ať se v něm ostatní rychle zorientují.  
+> [!TIP]  
+> Pokud je PR větší, popište hlavní změny v popisu PR, ať se v něm ostatní rychle zorientují.  
 
 ---
 
@@ -37,9 +41,11 @@
   - **/ViewModels** → Logika aplikace (MVVM)  
   - **/Services** → API komunikace  
 
-⚠️ **[WARNING]** Nepoužívejte hardcoded hodnoty – používejte **konstanty** nebo **konfigurační soubory**!  
+> [!WARNING]  
+> Nepoužívejte hardcoded hodnoty – používejte **konstanty** nebo **konfigurační soubory**!  
 
-💡 **[TIP]** Pokud si nejste jisti, jak napsat kód správně, inspirujte se existujícím kódem v repozitáři.  
+> [!TIP]  
+> Pokud si nejste jisti, jak napsat kód správně, inspirujte se existujícím kódem v repozitáři.  
 
 ---
 
@@ -47,7 +53,8 @@
 - **Stručné a výstižné** (max 72 znaků v první větě).  
 - Dodržujte jednotné prefixy commitů.  
 
-📌 **[IMPORTANT]** Každý commit by měl odpovídat **jedné konkrétní změně** – neslučujte více různých úprav do jednoho commitu!  
+> [!IMPORTANT]  
+> Každý commit by měl odpovídat **jedné konkrétní změně** – neslučujte více různých úprav do jednoho commitu!  
 
 ### 🚀 Nejčastější typy commit zpráv:  
 - **`[Feature]`** – Přidání nové funkce  
