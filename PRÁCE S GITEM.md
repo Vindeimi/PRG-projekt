@@ -57,14 +57,3 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 ## ⚠️ Pozor na konflikty
 
 Při sloučení větví může dojít ke konfliktům, pokud byly ve stejných místech kódu provedeny různé změny. V takovém případě Git označí konfliktní soubory a budete muset ručně vyřešit konflikty před dokončením merge.
-
-## 🤝 Spolupráce s týmem
-
-Při práci v týmu je důležité udržovat komunikaci. Pokud narazíte na problémy nebo máte dotazy, neváhejte se obrátit na ostatní členy týmu.
-
----
-
-## 🔚 Závěr
-
-Dodržováním těchto kroků a doporučení si usnadníte práci s Gitem a přispějete k efektivní spolupráci v týmu.  
-**Šťastné kódování!** 🚀
