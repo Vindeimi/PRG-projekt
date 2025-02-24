@@ -1,3 +1,1 @@
-# PRG-projekt
-YOYO insane exe 
-#Projektos
+# Známky & Absence - PROJEKT
