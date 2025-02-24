@@ -13,4 +13,4 @@ Chcete-li projekt spustit na svém počítači, postupujte podle následujícíc
 
 1. **Klonejte repozitář**
    ```bash
-   git clone https://github.com/username/repozitar.git
+   git clone [https://github.com/username/repozitar.git](https://github.com/Vindeimi/PRG-projekt.git)
