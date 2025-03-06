@@ -54,6 +54,34 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 
 ---
 
+> [!CAUTION]
+> Pozor na příkazy, které můžou vytvořit konflikty.
+> ```sh
+> git push --force #Přepíše historii na vzdáleném repozitáři. Může vést ke ztrátě dat
+> ```
+> ```sh
+> git reset --hard #Zruší všechny neukládané změny. Může způsobit ztrátu dat.
+> ```
+>  ```sh
+> git rebase #Mění historii. Může vyžadovat --force při push.
+> ```
+>  ```sh
+> git clean -f #Odstraní neukládané soubory. Zkontrolujte, co bude odstraněno.
+> ```
+> ```sh
+> git cherry-pick #Aplikuje jednotlivé commity z jiné větve. Může způsobit konflikty.
+> ```
+> ```sh
+> git push --delete #Odstraní vzdálenou větev. Buďte opatrní.
+> ```
+>  ```sh
+> git merge --abort #Zruší merge. Ujistěte se, že jste uložili důležité změny.
+> ```
+
+---
+
+---
+
 ## ⚠️ Pozor na konflikty
 
 Při sloučení větví může dojít ke konfliktům, pokud byly ve stejných místech kódu provedeny různé změny. V takovém případě Git označí konfliktní soubory a budete muset ručně vyřešit konflikty před dokončením merge.
