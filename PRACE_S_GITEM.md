@@ -55,7 +55,7 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 ---
 
 > [!CAUTION]
-> Pozor na příkazy, které můžou vytvořit konflikty.
+> # Pozor na příkazy, které můžou vytvořit konflikty.
 > ```sh
 > git push --force #Přepíše historii na vzdáleném repozitáři. Může vést ke ztrátě dat
 > ```
