@@ -68,15 +68,15 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 
 ### 📌 **Příklady použití:**  
 ```bash
-git commit -m "[Feature] Přidána kalkulace průměrné známky"
-git commit -m "[Fix] Opraven bug ve výpočtu absence"
-git commit -m "[Refactor] Přesunutí metody do jiné třídy"
-git commit -m "[Docs] Přidána pravidla pro Git workflow"
-git commit -m "[Style] Opraveny mezery a nesprávné názvy proměnných"
-git commit -m "[Test] Přidán test pro API komunikaci"
-git commit -m "[Chore] Aktualizace NuGet balíčků"
-git commit -m "[Perf] Optimalizována načítací doba seznamu"
-git commit -m "[Revert] Zrušení posledního PR kvůli chybám"
+git commit -m "[FEAT] Přidána kalkulace průměrné známky"
+git commit -m "[FIX] Opraven bug ve výpočtu absence"
+git commit -m "[REFACTOR] Přesunutí metody do jiné třídy"
+git commit -m "[DOCS] Přidána pravidla pro Git workflow"
+git commit -m "[STYLE] Opraveny mezery a nesprávné názvy proměnných"
+git commit -m "[TEST] Přidán test pro API komunikaci"
+git commit -m "[CHORE] Aktualizace NuGet balíčků"
+git commit -m "[PERF] Optimalizována načítací doba seznamu"
+git commit -m "[REVERT] Zrušení posledního PR kvůli chybám"
 ```
 
 ---
