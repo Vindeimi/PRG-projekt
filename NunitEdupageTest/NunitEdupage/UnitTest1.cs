@@ -26,27 +26,27 @@ namespace NunitEdupage
             try
             {
                 driver.Navigate().GoToUrl("https://login1.edupage.org/");
-                Console.WriteLine("Navigováno na pøihlašovací stránku.");
+                Console.WriteLine("NavigovÃ¡no na pÃ¸ihlaÅ¡ovacÃ­ strÃ¡nku.");
 
-                // Vyplnìní pøihlašovacích údajù
+                // VyplnÃ¬nÃ­ pÃ¸ihlaÅ¡ovacÃ­ch ÃºdajÃ¹
                 driver.FindElement(By.Name("username")).SendKeys("SamuelHanzlik");
-                driver.FindElement(By.Name("password")).SendKeys("48644969");
+                driver.FindElement(By.Name("password")).SendKeys("");
 
-                // Èekání na tlaèítko pro odeslání a kliknutí na nìj
+                // ÃˆekÃ¡nÃ­ na tlaÃ¨Ã­tko pro odeslÃ¡nÃ­ a kliknutÃ­ na nÃ¬j
                 var submitButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
                 submitButton.Click();
-                Console.WriteLine("Pøihlášení odesláno.");
+                Console.WriteLine("PÃ¸ihlÃ¡Å¡enÃ­ odeslÃ¡no.");
 
-                // Èekání na pøesmìrování po pøihlášení
-                Console.WriteLine($"Aktuální URL po pøihlášení: {driver.Url}");
+                // ÃˆekÃ¡nÃ­ na pÃ¸esmÃ¬rovÃ¡nÃ­ po pÃ¸ihlÃ¡Å¡enÃ­
+                Console.WriteLine($"AktuÃ¡lnÃ­ URL po pÃ¸ihlÃ¡Å¡enÃ­: {driver.Url}");
 
-                // Pokraèuj s pøechodem na stránku docházky
+                // PokraÃ¨uj s pÃ¸echodem na strÃ¡nku dochÃ¡zky
                 driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=attendance");
-                Console.WriteLine("Pøechod na stránku docházky.");
+                Console.WriteLine("PÃ¸echod na strÃ¡nku dochÃ¡zky.");
 
-                // Poèkej na tabulku
+                // PoÃ¨kej na tabulku
                 wait.Until(ExpectedConditions.ElementExists(By.CssSelector("table.dash_dochadzka")));
-                Console.WriteLine("Tabulka docházky nalezena.");
+                Console.WriteLine("Tabulka dochÃ¡zky nalezena.");
 
                 var scheduleTable = driver.FindElement(By.CssSelector("table.dash_dochadzka"));
                 string scheduleHtml = scheduleTable.GetAttribute("outerHTML");
@@ -55,7 +55,7 @@ namespace NunitEdupage
             catch (Exception ex)
             {
                 Console.WriteLine($"Chyba: {ex.Message}");
-                Console.WriteLine($"Zdrojovı kód stránky:\n{driver.PageSource}");
+                Console.WriteLine($"ZdrojovÃ½ kÃ³d strÃ¡nky:\n{driver.PageSource}");
                 throw;
             }
         }
