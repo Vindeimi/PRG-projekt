@@ -125,6 +125,7 @@ git push origin master
 ```sh
 # Nejprve stáhni změny z GitHubu
 git pull origin master --rebase
+# --rebase je alternativa k merge -> nedochází ke commitu navíc a je přehlednější
 
 # Pak zkus znovu pushnout
 git push origin master
