@@ -50,19 +50,21 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 > Každý commit by měl odpovídat **jedné konkrétní změně** – neslučujte více různých úprav do jednoho commitu!  
 
 ### 🚀 Nejčastější typy commit zpráv:  
-- **`[Feature]`** – Přidání nové funkce  
-- **`[Fix]`** – Oprava chyby nebo bugu  
-- **`[Refactor]`** – Změna kódu bez změny funkcionality  
-- **`[Docs]`** – Úprava dokumentace (`README.md`, `CONTRIBUTING.md` atd.)  
-- **`[Style]`** – Oprava formátování, mezery, lomítek – **žádná logická změna**  
-- **`[Test]`** – Přidání nebo úprava testů  
-- **`[Chore]`** – Údržba projektu (např. aktualizace knihoven)  
-- **`[Build]`** – Změny ve **sestavení projektu**, jako konfigurace nebo CI/CD  
-- **`[Perf]`** – Optimalizace výkonu  
-- **`[Revert]`** – Vrácení předchozí změny  
+- **`[FEAT]`** – Přidání nové funkce  
+- **`[FIX]`** – Oprava chyby nebo bugu  
+- **`[REFACTOR]`** – Změna kódu bez změny funkcionality  
+- **`[DOCS]`** – Úprava dokumentace (`README.md`, `CONTRIBUTING.md` atd.)  
+- **`[STYLE]`** – Oprava formátování, mezery, lomítek – **žádná logická změna**  
+- **`[TEST]`** – Přidání nebo úprava testů  
+- **`[CHORE]`** – Údržba projektu (např. aktualizace knihoven)  
+- **`[BUILD]`** – Změny ve **sestavení projektu**, jako konfigurace nebo CI/CD  
+- **`[PERF]`** – Optimalizace výkonu  
+- **`[REVERT]`** – Vrácení předchozí změny
+-  ---
 - **`[TIPS]`** – Přidání užitečné rady do dokumentace  
 - **`[WARNING]`** – Oprava kritické chyby nebo bezpečnostního problému  
-- **`[IMPORTANT]`** – Důležitá změna v architektuře nebo klíčové opravě  
+- **`[IMPORTANT]`** – Důležitá změna v architektuře nebo klíčové opravě
+-  ---
 
 ---
 
