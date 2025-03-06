@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\PRG C# 3\\WPFpokracovaci\\NunitEdupage\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{FE41AB8C-6980-4619-A3A3-770978354597}|NunitEdupage\\NunitEdupage.csproj|h:\\prg c# 3\\wpfpokracovaci\\nunitedupage\\nunitedupage\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FE41AB8C-6980-4619-A3A3-770978354597}|NunitEdupage\\NunitEdupage.csproj|solutionrelative:nunitedupage\\unittest1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UnitTest1.cs",
+              "DocumentMoniker": "H:\\PRG C# 3\\WPFpokracovaci\\NunitEdupage\\NunitEdupage\\UnitTest1.cs",
+              "RelativeDocumentMoniker": "NunitEdupage\\UnitTest1.cs",
+              "ToolTip": "H:\\PRG C# 3\\WPFpokracovaci\\NunitEdupage\\NunitEdupage\\UnitTest1.cs",
+              "RelativeToolTip": "NunitEdupage\\UnitTest1.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAowBIAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-06T08:22:58.219Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+Navigováno na přihlašovací stránku.
+Chyba: no such element: Unable to locate element: {"method":"css selector","selector":"button[type='submit']"}
+  (Session info: chrome=134.0.6998.36); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#no-such-element-exception
+Zdrojový kód stránky:
+<html><head>
+	<!-- @portal -->
+	<link rel="stylesheet" type="text/css" href="/global/pics/css/jquery-ui-1.12.1.css">
+	<link rel="stylesheet" type="text/css" href="/global/pics/css/edupageDefault.css?v=5dbc8d">
+	<link rel="stylesheet" type="text/css" href="/global/pics/css/edubar.css?v=361659">	
+	<link rel="stylesheet" type="text/css" href="/portal/pics/css/portalskin.css?v=5e1845">		
+	<link rel="stylesheet" href="/global/pics/gfonts/Open_Sans/font.css?v=609110">			
+	<link rel="stylesheet" href="/global/pics/css/font-awesome.min.css?v=2e1ba4">							
+	<script type="text/javascript" src="//static.edupage.org/global/pics/js/jquery/jquery-3.6.0.min.js?v=20130325"></script>							
+	<script type="text/javascript" src="//static.edupage.org/global/pics/js/jquery/jquery-migrate-3.4.0.min.js?v=20130325"></script>
+	<script type="text/javascript" src="/global/pics/js/jquery/jquery-ui-1.12.1.min.js"></script>	
+	<script src="/portal/pics/js/polyfill.min.js?v=c01571" type="text/javascript"></script>			
+	<script src="/global/pics/js/react/react.production.min.js?v=6ff6ce" type="text/javascript"></script>	
+	<script src="/global/pics/js/react/react-dom.production.min.js?v=6ff6ce" type="text/javascript"></script>	
+	<script src="/global/pics/js/react/tslib.js?v=1bb029" type="text/javascript"></script>	
+	
+	<script type="text/javascript" src="/app/pics/js/corejs.js?v=038eb0"></script>
+	<script type="text/javascript" src="/asc/pics/asc.js?v=c84f5f"></script>
+	<script type="text/javascript" src="/asc/pics/ui.js?v=6b6ecf"></script>
+	<script type="text/javascript" src="/asc/pics/ascmodule.js?v=bf9ab5"></script>
+
+	<script type="text/javascript" src="/langs/pics/js/lang_cz.js?v=302c96"></script>
+	<script src="/app/pics/jsw/Edupage.js?v=9d99f2" type="text/javascript"></script>								
+	<script src="/global/pics/js/edubarUtils.js?v=612c22" type="text/javascript"></script>								
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="shortcut icon" href="favicon.ico">
+	<title>EduPage</title>
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">					
+<link href="/skin/pics/css/layoutDefault.css?v=dcc19e" media="all" type="text/css" rel="stylesheet"></head>
+<body id="docbody" class="portalSkin login-module">	
+<div id="hornyPas">
+	<div class="obsahPasu obsahPasuLinks">
+		<ul id="quickLinks">
+			<li class="langChooser">
+				<a id="selectedLangBtn" tabindex="0" class="selectedLang" title="Výběr jazyka: Česky (Czech)">
+					<img src="/langs/pics/cz.gif" alt="Unknown language">
+				</a>				
+			</li>		</ul>
+	</div>
+	<div class="obsahPasu obsahPasuLogo">		
+		<a href="/portal/?eqa=Y21kPUdsb2JhbExvZ2lu" class="logo-outer"><img src="/portal/pics/icons/logo.png" alt=""></a>
+		<div class="sloga-outer">
+			<h1>EduPage</h1>
+			<span class="slogan">Teachers teach, we do the rest</span>	
+		</div>
+	</div>
+</div>
+<div class="portal-content-strip"></div>
+<div id="hlavnyPas" style="min-height: 713px;">
+	
+	<div class="obsahPasu"><div class="portal-content-box login-outer">
+	<div class="login-inner skgdLogin horizontal skgdGlobalLogin" id="jwa91d5818">
+		
+	<div class="mobile-center-align">
+			<h2 style="font-size:2.5em;margin: 0 0 12px 0;padding:0;text-align:center;">Přihlaste se prosím</h2>
+		</div>
+		
+<form action="https://login1.edupage.org/login/edubarLogin.php" method="post">
+			<input type="hidden" name="csrfauth" value="0d016e0e79d96e044c3833dbb480e30b6280a3d8939648a4ddae0d7e3dd27963e43461cd">
+						<ul class="skgdFormList">
+				<li>
+					
+					<span class="skgdFormLabel">
+						<label for="jwa91d5818e1">Uživatelské jméno:</label>
+					</span><span class="skgdFormValue">
+						<input id="jwa91d5818e1" class="skgdFormInput" type="text" name="username" value="">					
+					</span>				
+				</li>		
+				
+				<li>
+					
+					<span class="skgdFormLabel">
+						<label for="jwa91d5818e2">Heslo:</label>
+					</span><span class="skgdFormValue">
+						<input id="jwa91d5818e2" class="skgdFormInput" type="password" name="password" value="">					
+					</span>
+					
+				</li>
+						
+				<li>
+					<span class="skgdFormLabel"></span><span class="skgdFormValue skgdSubmitRow">							
+														
+						<input type="submit" class="skgdFormSubmit" value="Přihlášení" style="vertical-align: middle;">		
+					</span>	
+				</li>		
+				<li>
+					<span class="skgdFormLabel"></span>					
+					<span class="skgdFormValue skgdLostPasswordRow">
+						<a class="lostPasswordBtn" style="cursor:pointer" tabindex="0">Neznám přihlašovací jméno nebo heslo</a>
+						
+						
+						
+						
+						
+						
+						
+												
+											
+					</span>		
+				</li>	
+			</ul>	
+		</form><script type="text/javascript">
+
+$j(document).ready(function($) {		
+	var elem = $('#jwa91d5818');		
+	elem.find('.lostPasswordBtn').on('click',function() {
+			
+		barNewDialog({
+			'source': '/portal/?cmd=LostPassword',
+			'title': ls(1589)
+		});
+	}).on('keypress', function(e) {
+		if (e.which == 13) {
+			$(this).click();
+		}
+	});
+	
+		
+		elem.find('.ssoLoginBtn').on('click',function() {
+			window.location = barEncLink('/login/?cmd=oauthLogin&a='+($(this).attr('data-a')||""));			
+		}).on('keypress', function(e) {
+			if (e.which == 13) {
+				$(this).click();
+			}
+		});
+	});
+</script>	</div>
+
+</div>
+
+<script type="text/javascript">
+	barCssLoad('/skin/pics/css/layoutDefault.css?v=dcc19e');
+	
+	$j(document).ready(function() {
+		
+	});
+</script>	</div>
+</div><div id="dolnyPas">
+	<div class="obsahPasu">
+		<div id="footerNav">
+			<ul>
+				
+				<li>
+					<a href="http://www.asctimetables.com/" target="_blank"><span class="asc">asc</span>TimeTables</a>
+				</li>
+				<li>
+					<a href="http://www.edupage.org/" target="_blank"><span class="asc">asc</span>Edupage</a>
+				</li>
+				<li>
+					<a href="http://classregister.edupage.org/" target="_blank"><span class="asc">asc</span>Class Register</a>
+				</li>
+				<li>
+					<a href="http://mobile.edupage.org/" target="_blank">Mobile application</a>
+				</li>
+				<li>
+					<a href="http://www.ascagenda.com/" target="_blank"><span class="asc">asc</span>Agenda</a>
+				</li>
+			</ul>
+		</div>		
+		<div style="text-align: center;margin-top: 10px;">
+			© aSc 2025			<br><br>
+			<b>asc Applied Software Consultants, s.r.o.</b><br>
+			Námestie Slobody 11,<br>
+			811 06 Bratislava, Slovakia, EU<br><br>
+			
+			tel. (+421) 2 - 442 52580<br>
+			tel. (+421) 2 - 444 50535<br>	
+			<a href="mailto:info@asc.sk">info@asc.sk</a>
+		</div>		
+	</div>	
+</div>	
+<script type="text/javascript">
+$j(document).ready(function() {
+	function resize() {
+		$j('#hlavnyPas').css('min-height',($j(window).height()-180)+'px');
+	}
+	resize();
+	$j(window).on('resize',function() {
+		resize();
+	});
+
+	$j('#selectedLangBtn').on('click',function() {
+		var menuItems = [{"id":"en","name":"English"},{"id":"de","name":"Deutsch"},{"id":"es","name":"Spanish"},{"id":"sk","name":"Slovenčina (Slovak)"},{"id":"cz","name":"Česky (Czech)"},{"id":"hu","name":"Magyar (Hungarian)"},{"id":"pl","name":"Polski (Polish)"},{"id":"it","name":"Italiano (Italian)"},{"id":"is","name":"Icelandic"},{"id":"rb","name":"Arabic"},{"id":"lt","name":"Lithuanian"},{"id":"lv","name":"Latvian"},{"id":"my","name":"Malaysian"},{"id":"il","name":"Hebrew"},{"id":"si","name":"Slovene"},{"id":"ru","name":"Pусский (Russian)"},{"id":"pt","name":"Portuguese"},{"id":"br","name":"Brazil"},{"id":"sr","name":"Serbian"},{"id":"hr","name":"Croatian"},{"id":"ba","name":"Bosnian"},{"id":"cn","name":"Chinese"},{"id":"gr","name":"ελληνική (Greek)"},{"id":"ro","name":"Romanian"},{"id":"ee","name":"Estonian"},{"id":"tr","name":"Türkçe (Turkish)"},{"id":"bg","name":"български (Bulgarian)"},{"id":"fr","name":"Française (French)"},{"id":"nl","name":"Dutch"},{"id":"kk","name":"Kazakh"},{"id":"ky","name":"Kyrgyz"},{"id":"tj","name":"Tajik"},{"id":"ge","name":"Georgian"},{"id":"fa","name":"Farsi\/Iran"},{"id":"mn","name":"Mongolian"},{"id":"th","name":"Thai"},{"id":"az","name":"Azerbaijani"},{"id":"vn","name":"Vietnamese"},{"id":"ua","name":"Українська мова (Ukrainian)"},{"id":"uz","name":"Uzbek"}];
+		for (var i=0;i<menuItems.length;i++) {
+			menuItems[i].icon = '/langs/pics/'+menuItems[i].id+'.gif';
+		}
+		var dlg = barNewReactSourceDlg('/app/pics/jsw/components/AppSimpleMenu.js','AppSimpleMenu',{
+			items: menuItems,
+			
+			itemClick: function(item) {
+		
+				var params = EdubarUtils.getQueryParameters(window.location.href).params;
+
+				params['lang'] = item.id;				
+				window.location = barEncLink(window.location.pathname+'?'+$.param(params));
+
+			},			
+		}, {
+			dialogClass: 'grayTitleDialog noPadding',
+			width: 400,
+			title: lset(9998),
+			maxHeightKoef: 0.9
+		});
+	})
+});
+</script>	
+
+		</body></html>
