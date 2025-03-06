@@ -84,7 +84,7 @@ git commit -m "[REVERT] Zrušení posledního PR kvůli chybám"
 ## 📚 Základní příkazy Gitu
 
 - **`git status`** – Zobrazí aktuální stav vaší pracovní kopie (změny, které byly provedeny).
-- **`git log`** – Zobrazí historii commitů.
+- **`git log`** – Zobrazí historii commitů (Ukončit log pomocí klávesy 'Q').
 - **`git branch`** – Zobrazí seznam větví v repozitáři.
 - **`git checkout -b nová_větev`** – Vytvoří novou větev a přepne se na ni.
 - **`git merge název_větve`** – Sloučí změny z vybrané větve do aktuální větve.
