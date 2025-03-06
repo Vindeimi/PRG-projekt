@@ -60,9 +60,7 @@ Při sloučení větví může dojít ke konfliktům, pokud byly ve stejných m�
 
 ---
 
-## Workflow
-
-# Git a GitHub – Práce s VS a řešení problémů
+# Workflow
 
 ## 🛠️ Nastavení repozitáře
 
