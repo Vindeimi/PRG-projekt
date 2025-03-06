@@ -57,3 +57,119 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 ## ⚠️ Pozor na konflikty
 
 Při sloučení větví může dojít ke konfliktům, pokud byly ve stejných místech kódu provedeny různé změny. V takovém případě Git označí konfliktní soubory a budete muset ručně vyřešit konflikty před dokončením merge.
+
+---
+
+## Workflow
+
+# Git a GitHub – Práce s VS a řešení problémů
+
+## 🛠️ Nastavení repozitáře
+
+### 1️⃣ Klonování existujícího repozitáře
+Pokud chceš pracovat na projektu, který už je na GitHubu:
+```sh
+# Naklonuješ si projekt do složky
+git clone https://github.com/UZIVATEL/NAZEV-REPO.git
+cd NAZEV-REPO
+```
+
+### 2️⃣ Inicializace nového repozitáře
+Pokud chceš začít nový projekt:
+```sh
+# Spustí git v aktuální složce
+git init
+```
+Pak přidej vzdálený repozitář (pokud existuje):
+```sh
+git remote add origin https://github.com/UZIVATEL/NAZEV-REPO.git
+```
+
+## 🚀 Přidávání a commitování změn
+
+### 3️⃣ Přidání souborů ke commitu
+```sh
+# Přidání konkrétního souboru
+git add soubor.txt
+
+# Přidání všech souborů
+git add .
+```
+
+### 4️⃣ Commit změn
+```sh
+# Používej správný formát commit message
+# [BUILD] – změna struktury projektu
+# [FEAT] – přidání nové funkce/souboru
+# [FIX] – oprava chyby
+# [DOCS] – změna v dokumentaci
+
+git commit -m "[BUILD] Přidána nová složka pro assets"
+```
+
+## 🔄 Synchronizace s GitHubem
+
+### 5️⃣ Stažení změn před pushnutím (pull)
+```sh
+# Stáhne změny z GitHubu a sloučí s lokálním repozitářem
+git pull origin master --rebase
+```
+
+### 6️⃣ Odeslání změn na GitHub (push)
+```sh
+# Odesílá změny do hlavní větve
+git push origin master
+```
+
+## ❌ Řešení problémů
+
+### ❗ 7️⃣ Nelze pushnout ("non-fast-forward" error)
+```sh
+# Nejprve stáhni změny z GitHubu
+git pull origin master --rebase
+
+# Pak zkus znovu pushnout
+git push origin master
+```
+
+### ❗ 8️⃣ Merge konflikt
+Pokud máš konflikt mezi verzemi souboru:
+```sh
+# Otevři soubor, oprav konflikt ručně
+# Pak ho přidej do commitu a potvrď
+
+git add soubor.txt
+git commit -m "[FIX] Opraven merge konflikt"
+git push origin master
+```
+
+### ❗ 9️⃣ "fatal: refusing to merge unrelated histories"
+Pokud Git hlásí, že historie není propojená:
+```sh
+git pull origin master --allow-unrelated-histories
+```
+
+## 🗑️ Mazání souborů/složek z repozitáře
+
+### 🔟 Smazání souboru a jeho odstranění z repozitáře
+```sh
+rm soubor.txt
+git add soubor.txt
+git commit -m "[BUILD] Odstraněn nepotřebný soubor"
+git push origin master
+```
+
+### 🔟 Smazání složky
+```sh
+rm -rf slozka/
+git add -A
+git commit -m "[BUILD] Smazána složka s nepotřebnými soubory"
+git push origin master
+```
+
+---
+💡 **Tip:** Pokud něco nefunguje, podívej se na stav Git repozitáře:
+```sh
+git status
+```
+---
