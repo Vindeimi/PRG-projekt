@@ -80,8 +80,6 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 
 ---
 
----
-
 ## ⚠️ Pozor na konflikty
 
 Při sloučení větví může dojít ke konfliktům, pokud byly ve stejných místech kódu provedeny různé změny. V takovém případě Git označí konfliktní soubory a budete muset ručně vyřešit konflikty před dokončením merge.
