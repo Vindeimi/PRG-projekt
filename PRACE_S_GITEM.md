@@ -61,12 +61,10 @@ Po merge do `master` je dobré aktualizovat svou větev, abyste měli nejnověj�
 - **`[PERF]`** – Optimalizace výkonu  
 - **`[REVERT]`** – Vrácení předchozí změny
 -  ---
-- **`[TIPS]`** – Přidání užitečné rady do dokumentace  
-- **`[WARNING]`** – Oprava kritické chyby nebo bezpečnostního problému  
-- **`[IMPORTANT]`** – Důležitá změna v architektuře nebo klíčové opravě
+- **`[!TIPS]`** – Přidání užitečné rady do dokumentace  
+- **`[!WARNING]`** – Oprava kritické chyby nebo bezpečnostního problému  
+- **`[!IMPORTANT]`** – Důležitá změna v architektuře nebo klíčové opravě
 -  ---
-
----
 
 ### 📌 **Příklady použití:**  
 ```bash
