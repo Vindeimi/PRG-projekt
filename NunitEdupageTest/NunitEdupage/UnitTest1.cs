@@ -31,8 +31,8 @@ namespace NunitEdupage
                 Console.WriteLine("Navigováno na přihlašovací stránku.");
 
                 // Vyplnění přihlašovacích údajů
-                _driver.FindElement(By.Name("username")).SendKeys("SamuelHanzlik");
-                _driver.FindElement(By.Name("password")).SendKeys("48644969");
+                _driver.FindElement(By.Name("username")).SendKeys("");
+                _driver.FindElement(By.Name("password")).SendKeys("");
 
                 // Čekání na tlačítko pro odeslání a kliknutí na něj
                 var submitButton = _wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
