@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.Events;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -9,15 +11,15 @@ namespace NunitEdupage
 {
     public class Tests
     {
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        private IWebDriver _driver;
+        private WebDriverWait _wait;
 
         [SetUp]
         public void Setup()
         {
-            driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            _driver = new FirefoxDriver();
+            _driver.Manage().Window.Maximize();
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
         [Test]
@@ -25,37 +27,42 @@ namespace NunitEdupage
         {
             try
             {
-                driver.Navigate().GoToUrl("https://login1.edupage.org/");
-                Console.WriteLine("Navigováno na pøihlašovací stránku.");
+                _driver.Navigate().GoToUrl("https://login1.edupage.org/");
+                Console.WriteLine("Navigováno na přihlašovací stránku.");
 
-                // Vyplnìní pøihlašovacích údajù
-                driver.FindElement(By.Name("username")).SendKeys("SamuelHanzlik");
-                driver.FindElement(By.Name("password")).SendKeys("");
+                // Vyplnění přihlašovacích údajů
+                _driver.FindElement(By.Name("username")).SendKeys("SamuelHanzlik");
+                _driver.FindElement(By.Name("password")).SendKeys("48644969");
 
-                // Èekání na tlaèítko pro odeslání a kliknutí na nìj
-                var submitButton = wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
+                // Čekání na tlačítko pro odeslání a kliknutí na něj
+                var submitButton = _wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
                 submitButton.Click();
-                Console.WriteLine("Pøihlášení odesláno.");
+                Console.WriteLine("Přihlášení odesláno.");
 
-                // Èekání na pøesmìrování po pøihlášení
-                Console.WriteLine($"Aktuální URL po pøihlášení: {driver.Url}");
+                // Čekání na přesměrování po přihlášení
+                Console.WriteLine($"Aktuální URL po přihlášení: {_driver.Url}");
 
-                // Pokraèuj s pøechodem na stránku docházky
-                driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=attendance");
-                Console.WriteLine("Pøechod na stránku docházky.");
+                // Pokračuj s přechodem na stránku docházky
+                _driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=attendance");
+                Console.WriteLine("Přechod na stránku docházky.");
 
-                // Poèkej na tabulku
-                wait.Until(ExpectedConditions.ElementExists(By.CssSelector("table.dash_dochadzka")));
+                // Počkej na tabulku
+                _wait.Until(ExpectedConditions.ElementExists(By.CssSelector("table.dash_dochadzka")));
                 Console.WriteLine("Tabulka docházky nalezena.");
 
-                var scheduleTable = driver.FindElement(By.CssSelector("table.dash_dochadzka"));
+                _wait.Until(ExpectedConditions.ElementExists(By.CssSelector("div.asc-ribbon-button")));
+                IWebElement button = _driver.FindElement(By.CssSelector("div.asc-ribbon-button:nth-child(2)"));
+                button.Click();
+
+                _wait.Until(ExpectedConditions.ElementExists(By.CssSelector("div.dt-container")));
+                var scheduleTable = _driver.FindElement(By.CssSelector("div.dt-container"));
                 string scheduleHtml = scheduleTable.GetAttribute("outerHTML");
                 Console.WriteLine($"HTML tabulky s rozvrhem:\n{scheduleHtml}");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Chyba: {ex.Message}");
-                Console.WriteLine($"Zdrojový kód stránky:\n{driver.PageSource}");
+                Console.WriteLine($"Zdrojový kód stránky:\n{_driver.PageSource}");
                 throw;
             }
         }
@@ -63,11 +70,11 @@ namespace NunitEdupage
         [TearDown]
         public void Cleanup()
         {
-            if (driver != null)
+            if (_driver != null)
             {
-                driver.Quit();
-                driver.Dispose();
-                driver = null;
+                _driver.Quit();
+                _driver.Dispose();
+                _driver = null;
             }
         }
     }
