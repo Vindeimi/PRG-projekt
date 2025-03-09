@@ -44,8 +44,8 @@ namespace edupageTest
                 Console.WriteLine("Navigováno na přihlašovací stránku.");
 
                 // Vyplnění přihlašovacích údajů
-                _driver.FindElement(By.Name("username")).***REMOVED***;
-                _driver.FindElement(By.Name("password")).***REMOVED***;
+                _driver.FindElement(By.Name("username")).SendKeys("");
+                _driver.FindElement(By.Name("password")).SendKeys("");
 
                 // Čekání na tlačítko pro odeslání a kliknutí na něj
                 var submitButton = _wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
