@@ -12,6 +12,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using System.Security.Cryptography;
 
 namespace edupageTest
 {
@@ -20,11 +21,16 @@ namespace edupageTest
         private IWebDriver _driver;
         private WebDriverWait _wait;
 
+        //Side menu inicializace
+        private Design _design;
+
         public MainWindow()
         {
             InitializeComponent();
             Setup();
             LoginAndFetchAttendance();
+            //Design
+            _design = new Design(MenuBorder);
         }
 
         private void Setup()
@@ -93,6 +99,32 @@ namespace edupageTest
                 _driver.Dispose();
                 _driver = null;
             }
+        }
+
+        //Side menu private void
+        private void BurgerButton_Click(object sender, RoutedEventArgs e)
+        {
+            _design.BurgerButton_Click(sender, e);
+        }
+        //Side menu - Buttons 
+        private void Click_Test1(object sender, RoutedEventArgs e)
+        {
+            _design.Click_Test1(sender, e);
+        }
+
+        private void Click_Test2(object sender, RoutedEventArgs e)
+        {
+            _design.Click_Test2(sender, e);
+        }
+
+        private void Click_Test3(object sender, RoutedEventArgs e)
+        {
+            _design.Click_Test3(sender, e);
+        }
+
+        private void Click_Test4(object sender, RoutedEventArgs e)
+        {
+            _design.Click_Test4(sender, e);
         }
     }
 }
