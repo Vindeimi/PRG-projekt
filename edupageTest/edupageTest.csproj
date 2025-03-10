@@ -9,6 +9,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Icons\burger_menu_icon.png" />
+    <None Remove="Icons\event_note_icon.png" />
+    <None Remove="Icons\grades_icon.png" />
+    <None Remove="Icons\home_menu_icon.png" />
+    <None Remove="Icons\rubric_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Icons\burger_menu_icon.png" />
+    <Resource Include="Icons\event_note_icon.png" />
+    <Resource Include="Icons\grades_icon.png" />
+    <Resource Include="Icons\home_menu_icon.png" />
+    <Resource Include="Icons\rubric_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
     <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.27.0" />
     <PackageReference Include="Selenium.Support" Version="4.29.0" />

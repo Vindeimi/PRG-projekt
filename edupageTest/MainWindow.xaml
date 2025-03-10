@@ -5,8 +5,94 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:edupageTest"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="1080" Width="1920" Background="#41484a" WindowState="Maximized">
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Height" Value="60"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="12">
+                            <ContentPresenter/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Border" Property="Background" Value="#808080"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
-    </Grid>
+        <Style x:Key="MenuTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="35"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <!-- Define the layout for the menu and burger button -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Collapsible Menu -->
+            <Border x:Name="MenuBorder" Grid.Column="0" Width="380" Height="515" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" Margin="20,20" >
+                <StackPanel Margin="40,30,15,25" >
+                    <Button Click="Click_Test1" Margin="0,30,0,30" Style="{DynamicResource MenuButtonStyle}" >
+                        <Grid>
+                        <Image Source="\Icons\home_menu_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                            <TextBlock Text="Uvod" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
+                        </Grid>
+                    </Button>
+                    <Button Click="Click_Test2" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                        <Grid>
+                            <Image Source="\Icons\event_note_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                            <TextBlock Text="Rozvrh" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
+                        </Grid>
+                    </Button>
+                    <Button Click="Click_Test3" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                        <Grid>
+                            <Image Source="\Icons\rubric_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                            <TextBlock Text="Dochazka" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
+                        </Grid>
+                    </Button>
+                    <Button Click="Click_Test4" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                        <Grid>
+                            <Image Source="\Icons\grades_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                            <TextBlock Text="Znamky" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- Burger Button -->
+            <Border Grid.Column="0" Width="60" Height="60" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Left"
+            Margin="20" Panel.ZIndex="0" MouseLeftButtonDown="BurgerButton_Click">
+                <Button x:Name="BurgerButton" Grid.Column="0" Width="48" Height="48" HorizontalAlignment="Left" VerticalAlignment="Top" 
+                Click="BurgerButton_Click" Margin="5" Panel.ZIndex="1">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Image Source="/Icons/burger_menu_icon.png" Stretch="Uniform" />
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </Border>
+        </Grid>
 </Window>
