@@ -12,7 +12,9 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Edge;
 using System.Security.Cryptography;
+using OpenQA.Selenium.Remote;
 
 namespace edupageTest
 {
@@ -29,6 +31,7 @@ namespace edupageTest
             InitializeComponent();
             Setup();
             LoginAndFetchAttendance();
+
             //Design
             _design = new Design(MenuBorder);
         }
@@ -36,9 +39,27 @@ namespace edupageTest
         private void Setup()
         {
 
-            var options = new FirefoxOptions();
-            options.AddArgument("--headless=new");
-            _driver = new FirefoxDriver();
+            var options = new EdgeOptions();
+
+            ///
+            /// Nastaveni pak se zmeni
+            ///
+
+            //options.AddArgument("--headless=new");
+            //var service = EdgeDriverService.CreateDefaultService(@"H:\PRG C# 3\WPFpokracovaci\edupageRemake\PRG-projekt\msedgedriver.exe");
+            //service.LogPath = "msedgedriver.log";
+            //service.EnableVerboseLogging = true;
+
+            ///
+            /// Kdyz funguje lokalne -> preferovane
+            /// 
+
+            //_driver = new EdgeDriver(service, options);
+
+            ///
+            /// Kdyz nefunguje lokalne, pouzit remote server na port dany driverem
+            ///
+            _driver = new RemoteWebDriver(new Uri("http://localhost:58182"), options);
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
         }
 
