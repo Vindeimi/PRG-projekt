@@ -25,6 +25,7 @@
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="Border" Property="Background" Value="#808080"/>
+                                <Setter Property="Cursor" Value="Hand"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -51,7 +52,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Collapsible Menu -->
-            <Border x:Name="MenuBorder" Grid.Column="0" Width="380" Height="515" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" Margin="20,20" >
+            <Border x:Name="menuBorder" Grid.Column="0" Width="380" Height="515" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" Margin="20,20" >
                 <StackPanel Margin="40,30,15,25" >
                     <Button Click="Click_Test1" Margin="0,30,0,30" Style="{DynamicResource MenuButtonStyle}" >
                         <Grid>
@@ -84,7 +85,7 @@
             <Border Grid.Column="0" Width="60" Height="60" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Left"
             Margin="20" Panel.ZIndex="0" MouseLeftButtonDown="BurgerButton_Click">
                 <Button x:Name="BurgerButton" Grid.Column="0" Width="48" Height="48" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Click="BurgerButton_Click" Margin="5" Panel.ZIndex="1">
+                Click="BurgerButton_Click" Margin="5" Panel.ZIndex="1" Style="{DynamicResource MenuButtonStyle}">
                     <Button.Template>
                         <ControlTemplate>
                             <Grid>
