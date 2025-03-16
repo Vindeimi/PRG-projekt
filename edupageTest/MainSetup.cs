@@ -16,7 +16,9 @@ namespace edupageTest
         private Attendance _attendance;
         private Design _design;
         private Border _menuBorder;
-        public void Setup()
+        private Schedule _schedule;
+        private Date _date;
+        public async void Setup()
         {
             if (MainWindow.Instance != null)
             {
@@ -49,8 +51,21 @@ namespace edupageTest
             _attendance.FindAttendance();
             #endregion
 
+            #region Rozvrh
 
+            _schedule = new Schedule(_driver);
+            _schedule.FindPermanentTimeTable();
+            #endregion
+
+            #region Datum
+            _date = new Date();
+            await _date.AutoDetectRegionAsync();
+
+            var holidays = _date.GetHolidays(DateTime.Now.Year);
+
+            // PAK MUSIME PRIDAT IF JESTLI JE PRVNI NEBO DRUHE POLOLETI -> JESTLI JE PRVNI NOW.YEAR+1 JESTLI 2. TAK NOW.YEAR
+            var schoolDays = _date.GetSchoolDays(DateTime.Now.Year);
+            #endregion
         }
-
     }
 }
