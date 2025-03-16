@@ -97,6 +97,8 @@ namespace edupageTest
         }
         #endregion
 
+        #region CreateDriver 
+
         private IWebDriver CreateDriver(DriverOptions options)
         {
             switch (options)
@@ -120,7 +122,7 @@ namespace edupageTest
                     throw new ArgumentException("Nepodporovany typ options");
             }
         }
-
+        #endregion
 
         #region Window Closing Funkce
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
