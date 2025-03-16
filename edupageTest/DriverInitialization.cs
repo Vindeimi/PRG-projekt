@@ -84,6 +84,7 @@ namespace edupageTest
 
                 var service = EdgeDriverService.CreateDefaultService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory));
                 service.LogPath = "msedgeriver.log";
+                service.HideCommandPromptWindow = true;
                 service.EnableVerboseLogging = true;
 
                 service.Start();

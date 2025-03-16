@@ -26,7 +26,7 @@ namespace edupageTest
         private MainSetup _setup;
         public static MainWindow Instance { get; private set; }
 
-        public MainWindow()
+       public MainWindow()
         {
             InitializeComponent();
             Instance = this;
