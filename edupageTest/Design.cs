@@ -22,6 +22,8 @@ namespace edupageTest
             originalHeight = _menuBorder.Height;
         }
 
+        #region Buttony Funkce
+
         public void Click_Test1(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicked on button 1");
@@ -54,6 +56,9 @@ namespace edupageTest
 
             _isMenuCollapsed = !_isMenuCollapsed;
         }
+        #endregion 
+
+        #region Menu Funkce
 
         private void CollapseMenu()
         {
@@ -88,5 +93,7 @@ namespace edupageTest
             _menuBorder.BeginAnimation(Border.WidthProperty, expandWidthAnimation);
             _menuBorder.BeginAnimation(Border.HeightProperty, expandHeightAnimation);
         }
+
+        #endregion
     }
 }
