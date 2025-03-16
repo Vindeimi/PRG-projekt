@@ -28,8 +28,8 @@ namespace edupageTest
                 Console.WriteLine("Navigováno na přihlašovací stránku.");
 
                 // Vyplnění přihlašovacích údajů
-                _driverInitialization.Driver.FindElement(By.Name("username")).SendKeys("SamuelHanzlik");
-                _driverInitialization.Driver.FindElement(By.Name("password")).SendKeys("48644969");
+                _driverInitialization.Driver.FindElement(By.Name("username")).SendKeys("");
+                _driverInitialization.Driver.FindElement(By.Name("password")).SendKeys("");
 
                 // Čekání na tlačítko pro odeslání a kliknutí na něj
                 var submitButton = _driverInitialization.Wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName("skgdFormSubmit")));
