@@ -224,8 +224,8 @@ namespace edupageTest
             holidays.AddRange(GetPublicHolidays(year));
 
             // Letni prazdniny
-            if (year == DateTime.Now.Year)
-                holidays.AddRange(GetSummerHolidays(year));
+            // if (year == DateTime.Now.Year) -> kdyby byly chyby 
+            holidays.AddRange(GetSummerHolidays(year));
 
             return holidays.Distinct().ToList();
         }

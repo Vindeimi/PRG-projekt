@@ -45,11 +45,11 @@ namespace edupageTest
 
             #endregion
 
-            #region Attendance
+            //#region Attendance
 
-            _attendance= new Attendance(_driver);
-            _attendance.FindAttendance();
-            #endregion
+            //_attendance= new Attendance(_driver);
+            //_attendance.FindAttendance();
+            //#endregion
 
             #region Rozvrh
 
