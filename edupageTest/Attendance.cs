@@ -33,6 +33,8 @@ namespace edupageTest
 
     internal class Attendance
     {
+        private Date _date;
+        private Schedule _schedule;
         private Dictionary<string, AttendanceRecords> _attendanceData = new();
         private readonly DriverInitialization _driverInitialization;
 
@@ -134,5 +136,23 @@ namespace edupageTest
             }
         }
         #endregion
+
+        public void CalculateMaxAbsences()
+        {
+            _date = new Date();
+
+            var schoolDays = _date.GetSchoolDays(DateTime.Now.Year).ToList();
+
+            foreach (var subject in  _schedule.Subjects.Values)
+            {
+                subject.Max20Absence = (int)Math.Floor(subject.TotalHours * 0.2);
+                subject.Max30Absence = (int)Math.Floor(subject.TotalHours * 0.3);
+
+                Console.WriteLine($"{subject.Name}:");
+                Console.WriteLine($"- Celkem hodin: {subject.TotalHours}");
+                Console.WriteLine($"- Maximálně 20%: {subject.Max20Absence} hodin");
+                Console.WriteLine($"- Maximálně 30%: {subject.Max30Absence} hodin");
+            }
+        }
     }
 }
