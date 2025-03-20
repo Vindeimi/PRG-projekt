@@ -19,7 +19,7 @@ namespace edupageTest
         private readonly DriverInitialization _driverInitialization;
         private Dictionary<string, int> _subjectCount = new();
         private Dictionary<string, ScheduleInfo> _subjectSchedule = new();
-        private Dictionary<int, RectInfo> _rectInfo = new();
+        private Dictionary<string, RectInfo> _rectInfo = new();
 
         private Dictionary<string, SubjectInfo> _subjects;
         public Dictionary<string, SubjectInfo> Subjects => _subjects;
@@ -93,6 +93,7 @@ namespace edupageTest
             var permanentTableData = _driverInitialization.Driver.FindElement(By.CssSelector(".print-sheet > svg:nth-child(1) > g:nth-child(2)"));
             string permanentTableDataHtml = permanentTableData.GetAttribute("outerHTML");
             Console.WriteLine(permanentTableDataHtml) ;
+            string[] dayArr = ["Po1", "Ut1", "St1", "Čt1", "Pá1", "Po2", "Út2", "St2", "Čt2", "Pá2"];
 
             int rectNum = 0;
             IList<IWebElement> gElement = _driverInitialization.Driver.FindElements(By.TagName("g"));
@@ -115,7 +116,7 @@ namespace edupageTest
                         if (getWidthValue <= 110 && getHeightValue >= 225 && getHeightValue < 400)
                         {
                             rectNum++;
-                            _rectInfo[rectNum] = new RectInfo()
+                            _rectInfo[dayArr[rectNum-1]] = new RectInfo()
                             {
                                 Height = getHeightValue,
                                 Width = getWidthValue,
