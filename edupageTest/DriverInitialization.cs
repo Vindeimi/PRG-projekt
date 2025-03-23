@@ -91,10 +91,10 @@ namespace edupageTest
 
                 string uriAddress = "http://localhost:" + service.Port;
                 _driver = new RemoteWebDriver(new Uri(uriAddress), _edgeOption);
-                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
             }
 
-            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
         #endregion
 
