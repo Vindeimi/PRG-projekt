@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Net.Http.Headers;
 using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,11 @@ namespace edupageTest
     internal class Schedule
     {
         private readonly DriverInitialization _driverInitialization;
+
         private Dictionary<string, int> _subjectCount = new();
         private Dictionary<string, ScheduleInfo> _subjectSchedule = new();
         private Dictionary<string, RectInfo> _rectInfo = new();
+        private List<PermanentScheduleInfo> _permanentSchedule = new();
 
         private Dictionary<string, SubjectInfo> _subjects;
         public Dictionary<string, SubjectInfo> Subjects => _subjects;
@@ -28,6 +31,23 @@ namespace edupageTest
         {
             _driverInitialization = driverInitialization;
         }
+
+        #region Main Subject Info Class
+
+        public class PermanentScheduleInfo()
+        {
+            public string Day {  get; set; }
+            public int SubjectCount {  get; set; }
+            public double PositionY {  get; set; }
+            public double TextPositionY { get; set; }
+            public double PositionX { get; set; }
+            public int SchoolHours {  get; set; }
+            public Dictionary<string, int> Subjects { get; set; }
+
+        }
+        #endregion
+
+        #region Side Subjet Info Classy
 
         public class SubjectInfo()
         {
@@ -54,10 +74,17 @@ namespace edupageTest
             public double Width { get; set; }
             public double Height { get; set; }
             public double PositionY { get; set; }
-            public List<string> Subjects { get; set; }
+            public List<RecSubjectInfo> SubInfo { get; set; } = new();
+        }
+
+        private class RecSubjectInfo()
+        {
+            public int SubjectCount { get; set; }
+            public double PositionX { get; set; }
         }
 
         public void FindTimetable()
+
         {
             _driverInitialization.Driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=timetable");
             Console.WriteLine("Přechod na stránku rozvrhu.");
@@ -66,7 +93,9 @@ namespace edupageTest
             _driverInitialization.Wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".print-nobreak")));
             Console.WriteLine("Rozvrh nalezen.");
         }
+        #endregion
 
+        #region Find Permanent TimeTable
         public void FindPermanentTimeTable()
         {
             _driverInitialization.Driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=timetable");
@@ -86,6 +115,9 @@ namespace edupageTest
 
             ExtractPermanentTimeTableData();
         }
+        #endregion
+
+        #region Extract Permanent TimeTable Data
 
         private void ExtractPermanentTimeTableData()
         {
@@ -94,6 +126,8 @@ namespace edupageTest
             string permanentTableDataHtml = permanentTableData.GetAttribute("outerHTML");
             Console.WriteLine(permanentTableDataHtml) ;
             string[] dayArr = ["Po1", "Ut1", "St1", "Čt1", "Pá1", "Po2", "Út2", "St2", "Čt2", "Pá2"];
+            double prevRecPos = 0;
+            double prevPosY = 0;
 
             int rectNum = 0;
             IList<IWebElement> gElement = _driverInitialization.Driver.FindElements(By.TagName("g"));
@@ -102,47 +136,69 @@ namespace edupageTest
             {
                 IList<IWebElement> cells = element.FindElements(By.TagName("text"));
                 IList<IWebElement> rects = element.FindElements(By.TagName("rect"));
-                
+
+                #region Zjisteni rectu -> pole
+
                 foreach (var rect in rects)
                 {
                     string widthValue = rect.GetAttribute("width");
                     string heightValue = rect.GetAttribute("height");
                     string yValue = rect.GetAttribute("y");
+                    string xValue = rect.GetAttribute("x");
 
                     if (double.TryParse(widthValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double getWidthValue) &&
                         double.TryParse(heightValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double getHeightValue) &&
-                        double.TryParse(yValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double getPositionY))
+                        double.TryParse(yValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double getPositionY) && 
+                        double.TryParse(xValue, NumberStyles.Any, CultureInfo.InvariantCulture, out double getPositionX))
                     {
                         if (getWidthValue <= 110 && getHeightValue >= 225 && getHeightValue < 400)
                         {
                             rectNum++;
-                            _rectInfo[dayArr[rectNum-1]] = new RectInfo()
+                            _rectInfo[dayArr[rectNum - 1]] = new RectInfo()
                             {
                                 Height = getHeightValue,
                                 Width = getWidthValue,
                                 PositionY = getPositionY,
-                                Subjects = new List<string>()
+                                SubInfo = new List<RecSubjectInfo>()
                             };
                         }
 
-                        //MUSI SE PRIDAT KONTROLA DUPLIKATU
+                        
                         else if (getWidthValue > 115 && getHeightValue > 110 && getHeightValue < 245)
                         {
-                            rectNum++;
+                            rectNum++; 
                             var item = _rectInfo.FirstOrDefault(pair => pair.Value.PositionY == getPositionY);
-                            if (getWidthValue >= 225)
+                            if(prevRecPos != getPositionX  || prevPosY != item.Value.PositionY) // pokud x a y není stejné
                             {
-                                item.Value.Subjects.Add("2");
+                                if (getWidthValue >= 225)
+                                {
+                                    item.Value.SubInfo.Add(new RecSubjectInfo
+                                    {
+                                        PositionX = getPositionX,
+                                        SubjectCount = 2
+                                    });
+  
+                                }
+                                else
+                                {
+                                    item.Value.SubInfo.Add(new RecSubjectInfo
+                                    {
+                                        PositionX = getPositionX,
+                                        SubjectCount = 1
+                                    });
+                                }
+                                prevRecPos = getPositionX;
                             }
-                            else
-                            {
-                                item.Value.Subjects.Add("1");
-                            }
+                            prevPosY = item.Value.PositionY;
                         }
 
                     }
 
                 }
+                #endregion
+
+                #region Zjisteni cell -> textu
+
                 foreach (var cell in cells)
                 {
                     string getBaseLine = cell.GetAttribute("dominant-baseline");
@@ -184,12 +240,6 @@ namespace edupageTest
                                     var item = _subjectSchedule.FirstOrDefault(pair => pair.Value.PositionY == getLocationY);
                                     if (!string.IsNullOrEmpty(item.Key))
                                     {
-                                        //if (200 >= 200)
-                                        //{
-                                        //    item.Value.Subjects.Add(cell.Text.Trim());
-                                        //    item.Value.Subjects.Add(cell.Text.Trim());
-                                        //    item.Value.SubjectCount += 2;
-                                        //}
                                         item.Value.Subjects.Add(cell.Text.Trim());
                                         item.Value.SubjectCount++;
                                     }
@@ -197,9 +247,34 @@ namespace edupageTest
                             }
                         }
                     }
-                }                           
+                } 
+                for (int i = 0; i < _subjectSchedule.Count;i++)
+                {
+                    Dictionary<string, int> dictSub = new();
+                    double posX = 0;
+                    int subCount = 0;
+                    for (int n = 0; n < _subjectSchedule.ElementAt(i).Value.Subjects.Count(); n++)
+                    {
+                        dictSub[_subjectSchedule.ElementAt(i).Value.Subjects[n]] = _rectInfo.ElementAt(i).Value.SubInfo[n].SubjectCount;
+                        subCount += _rectInfo.ElementAt(i).Value.SubInfo[n].SubjectCount;
+                        posX = _rectInfo.ElementAt(i).Value.SubInfo.ElementAt(n).PositionX;
+                    }
+                    _permanentSchedule.Add(new PermanentScheduleInfo()
+                    {
+                        Day = _subjectSchedule.ElementAt(i).Key,
+                        PositionX = posX,
+                        PositionY = _rectInfo.ElementAt(i).Value.PositionY,
+                        TextPositionY = _subjectSchedule.ElementAt(i).Value.PositionY,
+                        SubjectCount = _rectInfo.ElementAt(1).Value.SubInfo.Count(),
+                        SchoolHours = subCount,
+                        Subjects = dictSub,
+                    });
+                }
+                #endregion
+
                 Console.WriteLine(_subjectCount);
             }
         }
+        #endregion
     }
 }
