@@ -39,16 +39,14 @@ namespace edupageTest
 
         private void Initialize()
         {
-
             DriverOptions[] options = [new FirefoxOptions(), new EdgeOptions(), new SafariOptions(), new ChromeOptions()];
 
-
-            foreach(var option in options)
+            foreach (var option in options)
             {
                 try
                 {
                     _driver = CreateDriver(option);
-                    if (_driver != null) break;                
+                    if (_driver != null) break;
                 }
                 catch (Exception e)
                 {
@@ -56,46 +54,85 @@ namespace edupageTest
                 }
             }
 
+            // 2. POKUS: Spustit driver přes remote driver
+
             if (_driver == null)
             {
-                _edgeOption = new EdgeOptions();
+                try
+                {
+                    _edgeOption = new EdgeOptions();
 
-                #region Option List
+                    #region Option List
 
-                //_edgeOption.AddArgument("--headless=new");
-                _edgeOption.AddArgument("--disable-features=EdgeSignin");
-                _edgeOption.AddArgument("--guest");
-                _edgeOption.AddArgument("--disable-features=EdgeSignIn,MSAccountSignIn,SyncBackendData");
-                _edgeOption.AddArgument("--disable-single-sign-on");
-                _edgeOption.AddArgument("--disable-autofill-assistant");
-                _edgeOption.AddArgument("--disable-account-consistency");
-                _edgeOption.AddArgument("--disable-signin-scoped-device-id");
-                _edgeOption.AddArgument("--disable-sync");
-                _edgeOption.AddArgument("--no-sandbox");
-                _edgeOption.AddArgument("--disable-gpu");
-                _edgeOption.AddArgument("--disable-extensions");
-                _edgeOption.AddArgument("--disable-blink-features=AutomationControlled");
-                _edgeOption.AddArgument("--log-level=3");
-                _edgeOption.AddArgument("--silent");
-                #endregion
+                    //_edgeOption.AddArgument("--headless=new");
+                    _edgeOption.AddArgument("--disable-features=EdgeSignin");
+                    _edgeOption.AddArgument("--guest");
+                    _edgeOption.AddArgument("--disable-features=EdgeSignIn,MSAccountSignIn,SyncBackendData");
+                    _edgeOption.AddArgument("--disable-single-sign-on");
+                    _edgeOption.AddArgument("--disable-autofill-assistant");
+                    _edgeOption.AddArgument("--disable-account-consistency");
+                    _edgeOption.AddArgument("--disable-signin-scoped-device-id");
+                    _edgeOption.AddArgument("--disable-sync");
+                    _edgeOption.AddArgument("--no-sandbox");
+                    _edgeOption.AddArgument("--disable-gpu");
+                    _edgeOption.AddArgument("--disable-extensions");
+                    _edgeOption.AddArgument("--disable-blink-features=AutomationControlled");
+                    _edgeOption.AddArgument("--log-level=3");
+                    _edgeOption.AddArgument("--silent");
 
-                string tempProfilePath = Path.Combine(Path.GetTempPath(), "EdgeProfile");
-                _edgeOption.AddArgument($"--user-data-dir={tempProfilePath}");
+                    #endregion
 
-                var service = EdgeDriverService.CreateDefaultService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory));
-                service.LogPath = "msedgeriver.log";
-                service.HideCommandPromptWindow = true;
-                service.EnableVerboseLogging = true;
+                    string tempProfilePath = Path.Combine(Path.GetTempPath(), "EdgeProfile");
+                    _edgeOption.AddArgument($"--user-data-dir={tempProfilePath}");
 
-                service.Start();
+                    var service = EdgeDriverService.CreateDefaultService(Path.Combine(AppDomain.CurrentDomain.BaseDirectory));
+                    service.LogPath = "msedgeriver.log";
+                    service.HideCommandPromptWindow = true;
+                    service.EnableVerboseLogging = true;
 
-                string uriAddress = "http://localhost:" + service.Port;
-                _driver = new RemoteWebDriver(new Uri(uriAddress), _edgeOption);
-                _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+                    service.Start();
+
+                    string uriAddress = "http://localhost:" + service.Port;
+                    _driver = new RemoteWebDriver(new Uri(uriAddress), _edgeOption);
+                    _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Remote WebDriver selhal: {e.Message}");
+
+                    // 3. POKUS: Spustit Edge přes Debugging Port
+                    try
+                    {                        
+                        ProcessStartInfo psi = new ProcessStartInfo
+                        {
+                            FileName = "msedge.exe",
+                            Arguments = "--remote-debugging-port=9222 --user-data-dir=\"C:\\temp\\edge-profile\"",
+                            CreateNoWindow = true,
+                            UseShellExecute = true,
+                            WindowStyle = ProcessWindowStyle.Hidden
+                        };
+                        Process.Start(psi);
+
+                        // Počkat, než se Edge zapne
+                        System.Threading.Thread.Sleep(3000);
+
+                        // Připojit se k němu přes Selenium
+                        EdgeOptions debugOptions = new EdgeOptions();
+                        debugOptions.DebuggerAddress = "localhost:9222";
+
+                        _driver = new EdgeDriver(debugOptions);
+                        _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Spuštění Edge s debugging portem selhalo: {ex.Message}");
+                    }
+                }
             }
 
             _wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(20));
         }
+
         #endregion
 
         #region CreateDriver 
@@ -109,11 +146,11 @@ namespace edupageTest
                     return new FirefoxDriver(firefoxOptions);
 
                 case ChromeOptions chromeOptions:
-                    chromeOptions.AddArgument("--headless=new"); 
+                    chromeOptions.AddArgument("--headless=new");
                     return new ChromeDriver(chromeOptions);
 
                 case EdgeOptions edgeOptions:
-                    edgeOptions.AddArgument("--headless"); 
+                    edgeOptions.AddArgument("--headless");
                     return new EdgeDriver(edgeOptions);
 
                 case SafariOptions safariOptions:
@@ -123,6 +160,7 @@ namespace edupageTest
                     throw new ArgumentException("Nepodporovany typ options");
             }
         }
+
         #endregion
 
         #region Window Closing Funkce
