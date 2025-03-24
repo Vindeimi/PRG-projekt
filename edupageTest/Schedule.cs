@@ -42,8 +42,7 @@ namespace edupageTest
             public double TextPositionY { get; set; }
             public double PositionX { get; set; }
             public int SchoolHours {  get; set; }
-            public Dictionary<string, int> Subjects { get; set; }
-
+            public List<OneSubjectInfo> SubjectInfo = new();
         }
         #endregion
 
@@ -83,6 +82,12 @@ namespace edupageTest
             public double PositionX { get; set; }
         }
 
+        public class OneSubjectInfo()
+        {
+            public string Name { get; set; }
+            public int Count { get; set; }
+            public double PositionX { get; set; }
+        }
         public void FindTimetable()
 
         {
@@ -93,6 +98,7 @@ namespace edupageTest
             _driverInitialization.Wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".print-nobreak")));
             Console.WriteLine("Rozvrh nalezen.");
         }
+
         #endregion
 
         #region Find Permanent TimeTable
@@ -250,12 +256,17 @@ namespace edupageTest
                 } 
                 for (int i = 0; i < _subjectSchedule.Count;i++)
                 {
-                    Dictionary<string, int> dictSub = new();
+                    List<OneSubjectInfo> oneSubjectInfo = new();
                     double posX = 0;
                     int subCount = 0;
                     for (int n = 0; n < _subjectSchedule.ElementAt(i).Value.Subjects.Count(); n++)
                     {
-                        dictSub[_subjectSchedule.ElementAt(i).Value.Subjects[n]] = _rectInfo.ElementAt(i).Value.SubInfo[n].SubjectCount;
+                        oneSubjectInfo.Add(new OneSubjectInfo()
+                        {
+                            Name = _subjectSchedule.ElementAt(i).Value.Subjects[n],
+                            Count = _rectInfo.ElementAt(i).Value.SubInfo[n].SubjectCount,
+                            PositionX = _rectInfo.ElementAt(i).Value.SubInfo.ElementAt(n).PositionX,
+                        });
                         subCount += _rectInfo.ElementAt(i).Value.SubInfo[n].SubjectCount;
                         posX = _rectInfo.ElementAt(i).Value.SubInfo.ElementAt(n).PositionX;
                     }
@@ -267,7 +278,7 @@ namespace edupageTest
                         TextPositionY = _subjectSchedule.ElementAt(i).Value.PositionY,
                         SubjectCount = _rectInfo.ElementAt(1).Value.SubInfo.Count(),
                         SchoolHours = subCount,
-                        Subjects = dictSub,
+                        SubjectInfo = oneSubjectInfo,
                     });
                 }
                 #endregion
