@@ -18,8 +18,15 @@ namespace edupageTest
         private Border _menuBorder;
         private Schedule _schedule;
         private Date _date;
-        public async void Setup()
+
+        //credentials field
+        private string _username;
+        private string _password;
+        public async void Setup(string username, string password)
         {
+            _username = username;
+            _password = password;
+
             if (MainWindow.Instance != null)
             {
                 _menuBorder = MainWindow.Instance.MenuBorder;
@@ -41,7 +48,7 @@ namespace edupageTest
 
             //Login, pak to bude jinak zatim jsem to dal sem
             _login = new Login(_driver);
-            _login.LoginAndFetchAttendance();
+            _login.LoginAndFetchAttendance(_username, _password);
 
             #endregion
 
