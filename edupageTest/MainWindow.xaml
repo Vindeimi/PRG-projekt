@@ -56,25 +56,25 @@
                 <StackPanel Margin="40,30,15,25" >
                     <Button Click="Click_Test1" Margin="0,30,0,30" Style="{DynamicResource MenuButtonStyle}" >
                         <Grid>
-                        <Image Source="\Icons\home_menu_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <Image Source="pack://application:,,,/Assets/Icons/home_menu_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
                             <TextBlock Text="Uvod" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
                         </Grid>
                     </Button>
                     <Button Click="Click_Test2" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
                         <Grid>
-                            <Image Source="\Icons\event_note_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <Image Source="pack://application:,,,/Assets/Icons/event_note_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
                             <TextBlock Text="Rozvrh" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
                         </Grid>
                     </Button>
                     <Button Click="Click_Test3" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
                         <Grid>
-                            <Image Source="\Icons\rubric_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                            <Image Source="pack://application:,,,/Assets/Icons/rubric_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
                             <TextBlock Text="Dochazka" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
                         </Grid>
                     </Button>
                     <Button Click="Click_Test4" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
                         <Grid>
-                            <Image Source="\Icons\grades_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <Image Source="pack://application:,,,/Assets/Icons/grades_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
                             <TextBlock Text="Znamky" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
                         </Grid>
                     </Button>
@@ -89,7 +89,7 @@
                     <Button.Template>
                         <ControlTemplate>
                             <Grid>
-                                <Image Source="/Icons/burger_menu_icon.png" Stretch="Uniform" />
+                            <Image Source="pack://application:,,,/Assets/Icons/burger_menu_icon.png" Stretch="Uniform" />
                             </Grid>
                         </ControlTemplate>
                     </Button.Template>
