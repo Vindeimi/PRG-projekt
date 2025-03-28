@@ -26,17 +26,19 @@ namespace edupageTest
         private MainSetup _setup;
         public static MainWindow Instance { get; private set; }
 
-       public MainWindow()
+        public MainWindow(string username, string password)
         {
             InitializeComponent();
             Instance = this;
 
-            // Hlavní setup
-            _setup = new MainSetup();
-            _setup.Setup();
-
             //Design 
             _design = new Design(menuBorder);
+
+            // Hlavní setup
+            _setup = new MainSetup();
+            _setup.Setup(username, password);
+
+            
         }
 
         public Border MenuBorder => menuBorder;

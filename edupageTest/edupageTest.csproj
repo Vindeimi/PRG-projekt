@@ -9,19 +9,44 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icons\burger_menu_icon.png" />
-    <None Remove="Icons\event_note_icon.png" />
-    <None Remove="Icons\grades_icon.png" />
-    <None Remove="Icons\home_menu_icon.png" />
-    <None Remove="Icons\rubric_icon.png" />
+    <Compile Remove="Icons\**" />
+    <EmbeddedResource Remove="Icons\**" />
+    <None Remove="Icons\**" />
+    <Page Remove="Icons\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icons\burger_menu_icon.png" />
-    <Resource Include="Icons\event_note_icon.png" />
-    <Resource Include="Icons\grades_icon.png" />
-    <Resource Include="Icons\home_menu_icon.png" />
-    <Resource Include="Icons\rubric_icon.png" />
+    <None Remove="Assets\Icons\burger_menu_icon.png" />
+    <None Remove="Assets\Icons\CheckBox_Blank.png" />
+    <None Remove="Assets\Icons\CheckBox_Checked.png" />
+    <None Remove="Assets\Icons\event_note_icon.png" />
+    <None Remove="Assets\Icons\grades_icon.png" />
+    <None Remove="Assets\Icons\home_menu_icon.png" />
+    <None Remove="Assets\Icons\Lock_Icon.png" />
+    <None Remove="Assets\Icons\Person_Icon.png" />
+    <None Remove="Assets\Icons\rubric_icon.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Icons\burger_menu_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\CheckBox_Blank.png" />
+    <Resource Include="Assets\Icons\CheckBox_Checked.png" />
+    <Resource Include="Assets\Icons\event_note_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\grades_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\home_menu_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Lock_Icon.png" />
+    <Resource Include="Assets\Icons\Person_Icon.png" />
+    <Resource Include="Assets\Icons\rubric_icon.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
