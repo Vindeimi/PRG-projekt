@@ -9,19 +9,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Icons\burger_menu_icon.png" />
-    <None Remove="Icons\event_note_icon.png" />
-    <None Remove="Icons\grades_icon.png" />
-    <None Remove="Icons\home_menu_icon.png" />
-    <None Remove="Icons\rubric_icon.png" />
+    <None Remove="burger_menu_icon.png" />
+    <None Remove="event_note_icon.png" />
+    <None Remove="grades_icon.png" />
+    <None Remove="home_menu_icon.png" />
+    <None Remove="rubric_icon.png" />
+    <None Remove="Views\Lock_Icon.png" />
+    <None Remove="Views\Person_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Icons\burger_menu_icon.png" />
-    <Resource Include="Icons\event_note_icon.png" />
-    <Resource Include="Icons\grades_icon.png" />
-    <Resource Include="Icons\home_menu_icon.png" />
-    <Resource Include="Icons\rubric_icon.png" />
+    <Resource Include="burger_menu_icon.png" />
+    <Resource Include="event_note_icon.png" />
+    <Resource Include="grades_icon.png" />
+    <Resource Include="home_menu_icon.png" />
+    <Resource Include="rubric_icon.png" />
+    <Resource Include="Views\Lock_Icon.png" />
+    <Resource Include="Views\Person_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
