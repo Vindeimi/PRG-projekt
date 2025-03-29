@@ -143,15 +143,21 @@ namespace edupageTest
             {
                 case FirefoxOptions firefoxOptions:
                     //firefoxOptions.AddArgument("--headless"); 
-                    return new FirefoxDriver(firefoxOptions);
+                    var firefoxService = FirefoxDriverService.CreateDefaultService();
+                    firefoxService.HideCommandPromptWindow = true;
+                    return new FirefoxDriver(firefoxService, firefoxOptions);
 
                 case ChromeOptions chromeOptions:
                     chromeOptions.AddArgument("--headless=new");
-                    return new ChromeDriver(chromeOptions);
+                    var chromeService = ChromeDriverService.CreateDefaultService();
+                    chromeService.HideCommandPromptWindow = true; 
+                    return new ChromeDriver(chromeService, chromeOptions);
 
                 case EdgeOptions edgeOptions:
                     edgeOptions.AddArgument("--headless");
-                    return new EdgeDriver(edgeOptions);
+                    var edgeService = EdgeDriverService.CreateDefaultService();
+                    edgeService.HideCommandPromptWindow = true; 
+                    return new EdgeDriver(edgeService, edgeOptions);
 
                 case SafariOptions safariOptions:
                     return new SafariDriver(safariOptions);
