@@ -1,7 +1,11 @@
-﻿using System;
+﻿using OpenQA.Selenium.DevTools.V131.DOM;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
+using System.Security.Policy;
+using System.Security.Principal;
 using System.Text.Json;
 
 namespace edupageTest
@@ -342,5 +346,46 @@ namespace edupageTest
             return new DateTime(year, month, day);
         }
         #endregion
+
+        public class Week()
+        {
+            public int WeekTypeNum { get; set; }
+            public OddWeek OddWeek = new();
+            public EvenWeek EvenWeek = new();
+        }
+
+        public class OddWeek()
+        {
+            public DateTime DateTime { get; set; }
+            public int WeekNumber { get; set; }
+            public DayOfWeek Day { get; set; }
+        }
+
+        public class EvenWeek()
+        {
+            public DateTime DateTime { get; set; }
+            public int WeekNumber { get; set; }
+            public DayOfWeek Day {  get; set; }
+        }
+
+        public List<Week> GetWeekType(int year)
+        {
+            var schoolDays = GetSchoolDays(year).ToArray();
+            List<Week> weeks = new List<Week>();
+
+            foreach(var day in schoolDays)
+            {
+                int weekNumber = CultureInfo.CurrentCulture.Calendar.GetWeekOfYear(day, CalendarWeekRule.FirstFourDayWeek, DayOfWeek.Monday);
+                if (weekNumber % 2 == 0)
+                {
+                    weeks.Add(new Week { EvenWeek = { Day = day.DayOfWeek, DateTime = day, WeekNumber = weekNumber}, WeekTypeNum = 2});
+                }
+                else
+                {
+                    weeks.Add(new Week { OddWeek = { Day = day.DayOfWeek, DateTime = day, WeekNumber = weekNumber }, WeekTypeNum = 1});
+                }
+            }
+            return weeks;
+        }
     }
 }   
