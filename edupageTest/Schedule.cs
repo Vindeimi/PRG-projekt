@@ -102,7 +102,7 @@ namespace edupageTest
         #endregion
 
         #region Find Permanent TimeTable
-        public void FindPermanentTimeTable()
+        public List<PermanentScheduleInfo> FindPermanentTimeTable()
         {
             _driverInitialization.Driver.Navigate().GoToUrl("https://sstebrno.edupage.org/dashboard/eb.php?mode=timetable");
             Console.WriteLine("Přechod na stránku rozvrhu.");
@@ -119,13 +119,13 @@ namespace edupageTest
             IWebElement scheduleButton = _driverInitialization.Driver.FindElement(By.CssSelector(".dropDownPanel"));
             scheduleButton.Click();
 
-            ExtractPermanentTimeTableData();
+            return ExtractPermanentTimeTableData();
         }
         #endregion
 
         #region Extract Permanent TimeTable Data
 
-        private void ExtractPermanentTimeTableData()
+        private List<PermanentScheduleInfo> ExtractPermanentTimeTableData()
         {
             _driverInitialization.Wait.Until(ExpectedConditions.ElementExists(By.CssSelector(".print-sheet > svg:nth-child(1) > g:nth-child(2)")));
             var permanentTableData = _driverInitialization.Driver.FindElement(By.CssSelector(".print-sheet > svg:nth-child(1) > g:nth-child(2)"));
@@ -285,6 +285,7 @@ namespace edupageTest
 
                 Console.WriteLine(_subjectCount);
             }
+            return _permanentSchedule;
         }
         #endregion
     }

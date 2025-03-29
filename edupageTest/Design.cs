@@ -24,19 +24,19 @@ namespace edupageTest
 
         #region Buttony Funkce
 
-        public void Click_Test1(object sender, RoutedEventArgs e)
+        public void UvodButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicked on button 1");
         }
-        public void Click_Test2(object sender, RoutedEventArgs e)
+        public void RozvrhButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicked on button 2");
         }
-        public void Click_Test3(object sender, RoutedEventArgs e)
+        public void DochazkaButton(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicked on button 3");
         }
-        public void Click_Test4(object sender, RoutedEventArgs e)
+        public void ZnamkyRozvrh(object sender, RoutedEventArgs e)
         {
             MessageBox.Show("Clicked on button 4");
         }
