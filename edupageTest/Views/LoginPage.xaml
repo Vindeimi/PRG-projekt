@@ -1,9 +1,7 @@
-﻿<Window x:Class="edupageTest.Views.LoginPage"
+<Window x:Class="edupageTest.Views.LoginPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:vm="clr-namespace:LoginPage.ViewModels"
-      xmlns:helpers="clr-namespace:LoginPage.Helpers"
-        Title="LoginPage" Width="1920" Height="1080" Background="#41484a" WindowState="Maximized" PreviewMouseDown="Window_PreviewMouseDown">
+      Title="LoginPage" Width="1920" Height="1080" Background="#41484a" WindowState="Maximized" PreviewMouseDown="Window_PreviewMouseDown">
 
     <Window.Resources>
         <ControlTemplate x:Key="TransparentTextBoxTemplate" TargetType="TextBox">
@@ -20,9 +18,23 @@
                 </Trigger>
             </ControlTemplate.Triggers>
         </ControlTemplate>
+
+        <ControlTemplate x:Key="TransparentPasswordBoxTemplate" TargetType="PasswordBox">
+            <Border x:Name="Border" Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="5">       
+                <ScrollViewer x:Name="PART_ContentHost"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
         <!-- Define the Style for TextBox -->
 
-        <Style x:Key="PasswordTextBoxStyle" TargetType="TextBox">
+        <Style x:Key="BaseTextBoxStyle" TargetType="Control">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="Transparent" />
             <Setter Property="FontSize" Value="35" />
@@ -64,6 +76,11 @@
                     <Setter Property="BorderBrush" Value="Transparent" />
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TextBoxStyle" TargetType="TextBox" BasedOn="{StaticResource BaseTextBoxStyle}"/>
+        <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox" BasedOn="{StaticResource BaseTextBoxStyle}">
+            <Setter Property="Template" Value="{StaticResource TransparentPasswordBoxTemplate}"/>
         </Style>
 
         <Style x:Key="SubmitButtonStyle" TargetType="Button">
@@ -181,7 +198,6 @@
             </Setter>
         </Style>
 
-
     </Window.Resources>
     <Grid>
         <Border Width="675" Height="720" Background="#2d3436" CornerRadius="30" Padding="50">
@@ -190,8 +206,8 @@
                 <TextBlock Text="Username" Style="{StaticResource OrientationTextBlock}"/>
                 <Border x:Name="BorderChange" CornerRadius="30" Background="White" Width="575" Height="80" Margin="0,0,0,50">
                     <Grid>
-                        <Image Source="pack://application:,,,/Assets/Icons/Person_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
-                        <TextBox x:Name="UsernameTextBox" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus" Style="{StaticResource PasswordTextBoxStyle}" KeyDown="TextBox_KeyDown"/>
+                        <Image Source="/Views/Person_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
+                        <TextBox x:Name="UsernameTextBox" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus" Style="{StaticResource TextBoxStyle}" KeyDown="TextBox_KeyDown"/>
                         <TextBlock x:Name="UsernamePlaceholderText" Text="Enter Edupage username" Style="{StaticResource PlaceholderTextBlock}" />
                     </Grid>
                 </Border>
@@ -199,8 +215,8 @@
                 <TextBlock Text="Password" Style="{StaticResource OrientationTextBlock}"/>
                 <Border CornerRadius="30" Background="White" Width="575" Height="80">
                     <Grid>
-                        <Image Source="pack://application:,,,/Assets/Icons/Lock_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
-                        <TextBox x:Name="PasswordTextBox" GotFocus="PasswordTextBox_GotFocus" LostFocus="PasswordTextBox_LostFocus" Style="{StaticResource PasswordTextBoxStyle}" KeyDown="TextBox_KeyDown"/>
+                        <Image Source="/Views/Lock_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
+                        <PasswordBox x:Name="PasswordTextBox" GotFocus="PasswordTextBox_GotFocus" LostFocus="PasswordTextBox_LostFocus" Style="{StaticResource PasswordBoxStyle}" KeyDown="TextBox_KeyDown"/>
                         <TextBlock x:Name="PasswordPlaceholderText" Text="Enter Edupage password" Style="{StaticResource PlaceholderTextBlock}"/>
                     </Grid>
                 </Border>
@@ -210,6 +226,7 @@
                         <TextBlock Text="Remember me" FontSize="30" FontFamily="Inter" FontWeight="Bold" Foreground="White" Background="Transparent" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0"/>
                     </Grid>
                 </Button>
+                <TextBlock/>
                 <Border Style="{StaticResource BorderButtonStyle}">
                     <Button Content="Submit" Style="{StaticResource SubmitButtonStyle}" Click="SubmitButton_Click"/>
                 </Border>
