@@ -1,4 +1,4 @@
-﻿using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.Support.UI;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
 using System;

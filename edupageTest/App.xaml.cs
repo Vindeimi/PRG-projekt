@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using edupageTest.Views;
 
 namespace edupageTest
 {
