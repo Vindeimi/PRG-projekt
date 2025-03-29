@@ -1,4 +1,4 @@
-﻿using edupageTest.Views;
+using edupageTest.Views;
 using OpenQA.Selenium;
 using System;
 using System.Collections.Generic;
