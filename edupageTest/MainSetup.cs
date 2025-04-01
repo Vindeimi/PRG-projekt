@@ -16,17 +16,22 @@ namespace edupageTest
         private Login _login;
         private Attendance _attendance;
         private Design _design;
+        private Graph _graph;
         private Border _menuBorder;
         private Schedule _schedule;
         private Date _date;
+        private Canvas _canvas;
+        private Grades _grades;
+
         public string Username, Password;
         public bool CanLogin = false;
         public bool LoggedIn = false;
 
-        public MainSetup(string username, string password)
+        public MainSetup(string username, string password, Canvas canvas )
         {
             Username = username;
             Password = password;
+            _canvas = canvas;
         }
 
         public async Task SetupAsync()
@@ -40,6 +45,7 @@ namespace edupageTest
             await Task.Delay(500);
 
             #region Inicializace driveru
+
             if (_driver == null)
             {
                 _driver = new DriverInitialization();
@@ -48,6 +54,7 @@ namespace edupageTest
             #endregion
 
             #region Login
+
             if (!LoggedIn)
             {
                 _login = new Login(_driver);
@@ -57,21 +64,45 @@ namespace edupageTest
 
             if (_login.CanLogin)
             {
-                #region Design
-                _design = new Design(_menuBorder);
-                #endregion
+                //#region Design
 
-                #region Rozvrh
-                _schedule = new Schedule(_driver);
-                var permanentTimeTable = await Task.Run(() => _schedule.FindPermanentTimeTable());
-                #endregion
+                //_design = new Design(_menuBorder);
+                //#endregion
 
-                #region Datum
-                _date = new Date();
-                await _date.AutoDetectRegionAsync();
-                var holidays = _date.GetHolidays(DateTime.Now.Year);
-                var schoolDays = _date.GetSchoolDays(DateTime.Now.Year);
-                var weeks = _date.GetWeekType(DateTime.Now.Year);
+                //#region Rozvrh
+
+                //_schedule = new Schedule(_driver);
+                //var permanentTimeTable = await Task.Run(() => _schedule.FindPermanentTimeTable());
+                //var subjectShortcut = _schedule.SubjectShortcut;
+                //#endregion
+
+                //#region Datum
+
+                //_date = new Date();
+                //await _date.AutoDetectRegionAsync();
+                //var holidays = _date.GetHolidays(DateTime.Now.Year);
+                //var schoolDays = _date.GetSchoolDays(DateTime.Now.Year);
+                //var weeks = _date.GetWeekType(DateTime.Now.Year);
+                //#endregion
+
+                //#region Attendance
+
+                //_attendance = new Attendance(_driver);
+                //Dictionary<string, AttendanceRecords> attendanceData = _attendance.FindAttendance();
+                //var absenceLimit = _attendance.CalculateAbsenceLimits(permanentTimeTable, weeks);
+                //#endregion
+
+                //#region Graf
+
+                //_graph = new Graph(attendanceData, _attendance.SemesterType, _canvas, subjectShortcut);
+                //Thread.Sleep(300);
+                //_graph.DrawMainMenuGraph();
+                //#endregion
+
+                #region Známky
+
+                _grades = new Grades(_driver);
+                var grades = _grades.FindGrades();
                 #endregion
             }
             CanLogin = _login.CanLogin;
