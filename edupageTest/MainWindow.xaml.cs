@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using OpenQA.Selenium.Remote;
 using System.Windows.Controls.Primitives;
 using edupageTest.Views;
+using edupageTest.ViewModel;
 
 namespace edupageTest
 {
@@ -28,12 +29,16 @@ namespace edupageTest
         private string _password, _username;
         public static MainWindow Instance { get; private set; }
         public bool CanLogin = false;
+        public Canvas GraphCanvas;
+
 
        public MainWindow(/*string username, string password*/)
         {
             InitializeComponent();
             Instance = this;
+            DataContext = new MainViewModel();
 
+            GraphCanvas = attendanceGraphCanvas;
             //_password = password;
             //_username = username;
 

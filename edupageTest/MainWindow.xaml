@@ -1,6 +1,8 @@
 <Window x:Class="edupageTest.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:oxy="http://oxyplot.org/wpf"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:edupageTest"
@@ -46,54 +48,155 @@
     </Window.Resources>
     <Grid>
         <!-- Define the layout for the menu and burger button -->
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-            <!-- Collapsible Menu -->
-            <Border x:Name="menuBorder" Grid.Column="0" Width="380" Height="515" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" Margin="20,20" >
-                <StackPanel Margin="40,30,15,25" >
-                    <Button Click="UvodButton" Margin="0,30,0,30" Style="{DynamicResource MenuButtonStyle}" >
-                        <Grid>
+        <!-- Collapsible Menu -->
+        <Border x:Name="menuBorder" Grid.Column="0" Width="380" Height="515" Background="#2d3436" CornerRadius="30" VerticalAlignment="Top" Margin="20,20" >
+            <StackPanel Margin="40,30,15,25" >
+                <Button Click="UvodButton" Margin="0,30,0,30" Style="{DynamicResource MenuButtonStyle}" >
+                    <Grid>
                         <Image Source="/home_menu_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
-                            <TextBlock Text="Uvod" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
-                        </Grid>
-                    </Button>
-                    <Button Click="RozvrhButton" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                        <TextBlock Text="Home" FontFamily="Inter" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Click="RozvrhButton" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                    <Grid>
+                        <Image Source="/event_note_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <TextBlock Text="Schedule" FontFamily="Inter" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
+                    </Grid>
+                </Button>
+                <Button Click="DochazkaButton" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                    <Grid>
+                        <Image Source="/rubric_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <TextBlock Text="Attendance" FontFamily="Inter" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
+                    </Grid>
+                </Button>
+                <Button Click="ZnamkyRozvrh" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
+                    <Grid>
+                        <Image Source="/grades_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
+                        <TextBlock Text="Grades" FontFamily="Inter" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
+                    </Grid>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- Burger Button -->
+        <Border Grid.Column="0" Width="60" Height="60" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Left"
+        Margin="20" Panel.ZIndex="0" MouseLeftButtonDown="BurgerButton_Click">
+            <Button x:Name="BurgerButton" Grid.Column="0" Width="48" Height="48" HorizontalAlignment="Left" VerticalAlignment="Top" 
+            Click="BurgerButton_Click" Margin="5" Panel.ZIndex="1" Style="{DynamicResource MenuButtonStyle}">
+                <Button.Template>
+                    <ControlTemplate>
                         <Grid>
-                            <Image Source="/event_note_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
-                            <TextBlock Text="Rozvrh" Margin="60,10,10,0" Style="{DynamicResource MenuTextBlockStyle}"/>
+                            <Image Source="/burger_menu_icon.png" Stretch="Uniform" />
                         </Grid>
-                    </Button>
-                    <Button Click="DochazkaButton" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
-                        <Grid>
-                            <Image Source="/rubric_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
-                            <TextBlock Text="Dochazka" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
-                        </Grid>
-                    </Button>
-                    <Button Click="ZnamkyRozvrh" Style="{DynamicResource MenuButtonStyle}" Margin="0,0,0,30">
-                        <Grid>
-                            <Image Source="/grades_icon.png" Width="48" Height="48" Margin="0,0,260,0"/>
-                            <TextBlock Text="Znamky" Style="{DynamicResource MenuTextBlockStyle}" Margin="60,10,10,0"/>
-                        </Grid>
-                    </Button>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </Border>
+        <Grid x:Name="mainContentGrid" Grid.Column="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="25" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border x:Name="subjectDiameter" Grid.Column="1" Grid.Row="1" Width="675" Height="720" Background="#4B6584" CornerRadius="30">
+                <StackPanel Margin="30,30,25,25" >                    
+                    <Grid Margin="0,0,0,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Diameter" Foreground="#F7F9F9" FontSize="45" FontWeight="Bold" FontFamily="Inter" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid  Margin="0,0,0,60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
+                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
+                    </Grid>
+                    <Grid  Margin="0,0,0,60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
+                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
+                    </Grid>
+                    <Grid  Margin="0,0,0,60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
+                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
+                    </Grid>
+                    <Grid  Margin="0,0,0,40">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
+                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
+                    </Grid>
+                    <Grid  Margin="0,0,0,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="75" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="View More" FontSize="35" Foreground="#F7F9F9" FontWeight="Bold" FontFamily="Inter" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <Canvas Grid.Column="3" Margin="0,0,0,50">
+                            <Ellipse Height="55" Width="55" Fill="#F7F9F9"/>
+                            <Path Data="M 0,0 L 15,15 L 30 0" Stroke="Black" StrokeThickness="5" StrokeLineJoin="Round"
+                                 HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="17.5" Stretch="Fill" Width="35"/>
+                        </Canvas>
+                    </Grid>
                 </StackPanel>
             </Border>
 
-            <!-- Burger Button -->
-            <Border Grid.Column="0" Width="60" Height="60" Background="#2d3436" CornerRadius="12" VerticalAlignment="Top" HorizontalAlignment="Left"
-            Margin="20" Panel.ZIndex="0" MouseLeftButtonDown="BurgerButton_Click">
-                <Button x:Name="BurgerButton" Grid.Column="0" Width="48" Height="48" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                Click="BurgerButton_Click" Margin="5" Panel.ZIndex="1" Style="{DynamicResource MenuButtonStyle}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid>
-                                <Image Source="/burger_menu_icon.png" Stretch="Uniform" />
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+            <Border x:Name="attendanceGraph" Grid.Column="2" Grid.Row="1" Width="675" Height="720" Background="#2d3436" CornerRadius="30">
+                <StackPanel Margin="30,30,25,25">
+                    <Grid Margin="0,0,0,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="Attendance" Foreground="#F7F9F9" FontSize="45" FontWeight="Bold" FontFamily="Inter" TextAlignment="Center" VerticalAlignment="Center"/>
+                    </Grid>
+                    <Grid Margin="0,0,0,35">
+                        <Border Grid.Row="1" Width="529" Height="462.57" CornerRadius="30" 
+                                Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Canvas x:Name="attendanceGraphCanvas" Margin="15" Height="425" Width="500">                               
+                            </Canvas> 
+                        </Border>
+                    </Grid>
+                    <Grid  Margin="0,0,0,50">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="10" />
+                            <ColumnDefinition Width="75" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="1" Text="View More" FontSize="35" Foreground="#F7F9F9" FontWeight="Bold" FontFamily="Inter" VerticalAlignment="Center" TextAlignment="Right"/>
+                        <Canvas Grid.Column="3" Margin="0,0,0,50">
+                            <Ellipse Height="55" Width="55" Fill="#F7F9F9"/>
+                            <Path Data="M 0,0 L 15,15 L 30 0" Stroke="Black" StrokeThickness="5" StrokeLineJoin="Round"
+             HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="17.5" Stretch="Fill" Width="35"/>
+                        </Canvas>
+                    </Grid>
+                </StackPanel>
             </Border>
         </Grid>
+    </Grid>
 </Window>
