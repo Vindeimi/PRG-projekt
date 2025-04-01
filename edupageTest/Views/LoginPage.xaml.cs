@@ -29,13 +29,13 @@ namespace edupageTest.Views
 
         private bool _canLogin = false;
         private MainSetup _setup;
-        private MainWindow _mainWindow;
+        private MainWindow _mainWindow;       
 
         public LoginPage()
         {
             InitializeComponent();
-            _setup = new MainSetup(Username, Password);
             _mainWindow = new MainWindow();
+            _setup = new MainSetup(Username, Password, _mainWindow.GraphCanvas);
             //ViewModel = new MainViewModel();
             //this.DataContext = ViewModel;
             this.PreviewMouseDown += Window_PreviewMouseDown;
