@@ -144,7 +144,7 @@ namespace edupageTest
                 case FirefoxOptions firefoxOptions:
                     //firefoxOptions.AddArgument("--headless"); 
                     var firefoxService = FirefoxDriverService.CreateDefaultService();
-                    firefoxService.HideCommandPromptWindow = true;
+                    //firefoxService.HideCommandPromptWindow = true;
                     return new FirefoxDriver(firefoxService, firefoxOptions);
 
                 case ChromeOptions chromeOptions:
