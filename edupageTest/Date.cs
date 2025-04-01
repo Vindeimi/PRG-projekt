@@ -191,7 +191,7 @@ namespace edupageTest
         public IEnumerable<DateTime> GetSchoolDays(int year)
         {
             DateTime start = new DateTime(year-1, 9, 1);
-            DateTime end = new DateTime(year, 6, 30);
+            DateTime end = new DateTime(year, 1, 26);
 
             var allDays = GenerateDateRange(start, end);
             var holidays = GetHolidays(year);
@@ -237,7 +237,7 @@ namespace edupageTest
 
         #region Jarni Prazdniny
 
-        private List<DateTime> GetSpringHolidays(int year)
+        private List<DateTime> GetSpringHolidays(int year) //ŠPATĚN MUSÍ SE OPRAVIT
         {
             var holidays = new Dictionary<CzechRegion, (DateTime Start, DateTime End)>
             {
@@ -281,7 +281,7 @@ namespace edupageTest
         private List<DateTime> GetChristmasHolidays(int year)
         {
             DateTime xmasStart = new DateTime(year, 12, 23);
-            DateTime xmasEnd = new DateTime(year, 1, 2).AddYears(1); // Presah do nového roku
+            DateTime xmasEnd = new DateTime(year, 1, 2).AddYears(1); // Presah do noveho roku
             return GenerateDateRange(xmasStart, xmasEnd).ToList();
         }
 
@@ -310,12 +310,12 @@ namespace edupageTest
                 new DateTime(year, 5, 8),     // Den osvobozeni
                 new DateTime(year, 7, 5),     // Cyril a Metodej
                 new DateTime(year, 7, 6),     // Jan Hus
-                new DateTime(year, 9, 28),    // Den ceske statnosti
-                new DateTime(year, 10, 28),   // Vznik CSR
-                new DateTime(year, 11, 17),   // Den boje za svobodu
-                new DateTime(year, 12, 24),   // Stedry den
-                new DateTime(year, 12, 25),   // 1. svatek vanocni
-                new DateTime(year, 12, 26)    // 2. svatek vanocni
+                new DateTime(year - 1, 9, 28),    // Den ceske statnosti
+                new DateTime(year - 1, 10, 28),   // Vznik CSR
+                new DateTime(year - 1, 11, 17),   // Den boje za svobodu
+                new DateTime(year - 1, 12, 24),   // Stedry den
+                new DateTime(year - 1, 12, 25),   // 1. svatek vanocni
+                new DateTime(year - 1, 12, 26)    // 2. svatek vanocni
             };
         }
 
@@ -346,6 +346,8 @@ namespace edupageTest
             return new DateTime(year, month, day);
         }
         #endregion
+
+        #region Výpočet Týdne
 
         public class Week()
         {
@@ -387,5 +389,6 @@ namespace edupageTest
             }
             return weeks;
         }
+        #endregion
     }
 }   
