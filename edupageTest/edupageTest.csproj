@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -14,6 +14,8 @@
     <None Remove="grades_icon.png" />
     <None Remove="home_menu_icon.png" />
     <None Remove="rubric_icon.png" />
+    <None Remove="Views\Lock_Icon.png" />
+    <None Remove="Views\Person_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +24,14 @@
     <Resource Include="grades_icon.png" />
     <Resource Include="home_menu_icon.png" />
     <Resource Include="rubric_icon.png" />
+    <Resource Include="Views\Lock_Icon.png" />
+    <Resource Include="Views\Person_Icon.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="OxyPlot.Wpf" Version="2.2.0" />
     <PackageReference Include="Selenium.Firefox.WebDriver" Version="0.27.0" />
     <PackageReference Include="Selenium.Support" Version="4.29.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.29.0" />
