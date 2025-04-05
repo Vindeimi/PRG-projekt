@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Icons\burger_menu_icon.png" />
+    <None Remove="Assets\Icons\CheckBox_Blank.png" />
+    <None Remove="Assets\Icons\CheckBox_Checked.png" />
+    <None Remove="Assets\Icons\event_note_icon.png" />
+    <None Remove="Assets\Icons\grades_icon.png" />
+    <None Remove="Assets\Icons\home_menu_icon.png" />
+    <None Remove="Assets\Icons\Lock_Icon.png" />
+    <None Remove="Assets\Icons\Person_Icon.png" />
+    <None Remove="Assets\Icons\rubric_icon.png" />
     <None Remove="burger_menu_icon.png" />
     <None Remove="event_note_icon.png" />
     <None Remove="grades_icon.png" />
@@ -19,13 +28,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="burger_menu_icon.png" />
-    <Resource Include="event_note_icon.png" />
-    <Resource Include="grades_icon.png" />
-    <Resource Include="home_menu_icon.png" />
-    <Resource Include="rubric_icon.png" />
-    <Resource Include="Views\Lock_Icon.png" />
-    <Resource Include="Views\Person_Icon.png" />
+    <Resource Include="Assets\Icons\burger_menu_icon.png" />
+    <Resource Include="Assets\Icons\CheckBox_Blank.png" />
+    <Resource Include="Assets\Icons\CheckBox_Checked.png" />
+    <Resource Include="Assets\Icons\event_note_icon.png" />
+    <Resource Include="Assets\Icons\grades_icon.png" />
+    <Resource Include="Assets\Icons\home_menu_icon.png" />
+    <Resource Include="Assets\Icons\Lock_Icon.png" />
+    <Resource Include="Assets\Icons\Person_Icon.png" />
+    <Resource Include="Assets\Icons\rubric_icon.png" />
   </ItemGroup>
 
   <ItemGroup>

@@ -65,6 +65,10 @@ namespace edupageTest
 
             _driverInitialization.Wait.Until(ExpectedConditions.ElementExists(By.CssSelector("div.asc-ribbon-button")));
             IWebElement button = _driverInitialization.Driver.FindElement(By.CssSelector("div.asc-ribbon-button:nth-child(2)"));
+            if (button.Text == "Omluvenky" || button.Text == "omluvenky")
+            {
+                button = _driverInitialization.Driver.FindElement(By.CssSelector("div.asc-ribbon-button:nth-child(3)"));
+            }
             button.Click();
 
             _driverInitialization.Wait.Until(ExpectedConditions.ElementExists(By.CssSelector("div.dt-container")));
