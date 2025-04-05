@@ -17,7 +17,6 @@ using System.Security.Cryptography;
 using OpenQA.Selenium.Remote;
 using System.Windows.Controls.Primitives;
 using edupageTest.Views;
-using edupageTest.ViewModel;
 
 namespace edupageTest
 {
@@ -27,29 +26,27 @@ namespace edupageTest
         private Design _design;
         private MainSetup _setup;
         private string _password, _username;
-        public static MainWindow Instance { get; private set; }
+        //public static MainWindow Instance { get; private set; }
         public bool CanLogin = false;
-        public Canvas GraphCanvas;
+        //public Canvas GraphCanvas;
 
 
        public MainWindow(/*string username, string password*/)
         {
             InitializeComponent();
-            Instance = this;
-            DataContext = new MainViewModel();
-
-            GraphCanvas = attendanceGraphCanvas;
+            //Instance = this;
+            AppContext.MainWindow = this;
+            AppContext.MenuBorder = menuBorder;
+            AppContext.GraphCanvas = attendanceGraphCanvas;
             //_password = password;
             //_username = username;
 
             // Hlavní setup
-            //this.Loaded += MainWindow_Loaded;
+            //this.Loaded += MainWindow_Loaded;            
 
             //Design 
             _design = new Design(menuBorder);
         }
-
-        public Border MenuBorder => menuBorder;
 
         //private async void MainWindow_Loaded(object sender, RoutedEventArgs e)
         //{
@@ -61,13 +58,13 @@ namespace edupageTest
         #region ButtonClicks
 
         //Side menu private void
-        private void BurgerButton_Click(object sender, RoutedEventArgs e) => _design.BurgerButton_Click(sender, e);
+        private void BurgerButton_Click(object sender, RoutedEventArgs e) => _design.BurgerButton_Click(sender, e, MainFrame);
 
         //Side menu - Buttons 
-        private void UvodButton(object sender, RoutedEventArgs e) => _design.UvodButton(sender, e);
-        private void RozvrhButton(object sender, RoutedEventArgs e) => _design.RozvrhButton(sender, e);
-        private void DochazkaButton(object sender, RoutedEventArgs e) => _design.DochazkaButton(sender, e);
-        private void ZnamkyRozvrh(object sender, RoutedEventArgs e) => _design.ZnamkyRozvrh(sender, e);
+        private void UvodButton(object sender, RoutedEventArgs e) => _design.UvodButton(sender, e, MainFrame);
+        private void RozvrhButton(object sender, RoutedEventArgs e) => _design.RozvrhButton(sender, e, MainFrame);
+        private void DochazkaButton(object sender, RoutedEventArgs e) => _design.DochazkaButton(sender, e, MainFrame);
+        private void ZnamkyRozvrh(object sender, RoutedEventArgs e) => _design.ZnamkyRozvrh(sender, e, MainFrame);
         #endregion
     }
 }
