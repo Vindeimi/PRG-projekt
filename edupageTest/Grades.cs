@@ -29,14 +29,6 @@ namespace edupageTest
             _driverInitialization = driverInitialization;
         }
 
-
-        public class GradeRecords
-        {
-            public string Subject { get; set; }
-            public List<KeyValuePair<string, double>> Grades { get; set; }
-            public string Diameter { get; set; }
-        }
-
         public List<KeyValuePair<string, GradeRecords>> FindGrades()
         {
             _driverInitialization.Driver.Navigate().GoToUrl("https://sstebrno.edupage.org/znamky/?eqa=d2hhdD1zdHVkZW50dmlld2VyJnBvaGxhZD1wcmVobGFkJnpuYW1reV95ZWFyaWQ9MjAyNCZ6bmFta3lfeWVhcmlkX25zPTEmbmFkb2Jkb2JpZT1QMiZyb2tvYmRvYmllPTIwMjQlM0ElM0FQMiZkb1JxPTEmd2hhdD1zdHVkZW50dmlld2VyJnVwZGF0ZUxhc3RWaWV3PTA%3D");
@@ -211,5 +203,11 @@ namespace edupageTest
 
             return weights;
         }
+    }
+    public class GradeRecords
+    {
+        public string Subject { get; set; }
+        public List<KeyValuePair<string, double>> Grades { get; set; }
+        public string Diameter { get; set; }
     }
 }

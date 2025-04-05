@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace edupageTest
 {
@@ -15,6 +16,7 @@ namespace edupageTest
         private Border _menuBorder;
         private double originalWidth;
         private double originalHeight;
+        private GradesPage _gradesPage;
         public Design(Border menuBorder)
         {
             _menuBorder = menuBorder;
@@ -24,23 +26,23 @@ namespace edupageTest
 
         #region Buttony Funkce
 
-        public void UvodButton(object sender, RoutedEventArgs e)
+        public void UvodButton(object sender, RoutedEventArgs e, Frame mainFrame)
         {
-            MessageBox.Show("Clicked on button 1");
+            mainFrame.Content = null;
         }
-        public void RozvrhButton(object sender, RoutedEventArgs e)
+        public void RozvrhButton(object sender, RoutedEventArgs e, Frame mainFrame)
         {
             MessageBox.Show("Clicked on button 2");
         }
-        public void DochazkaButton(object sender, RoutedEventArgs e)
+        public void DochazkaButton(object sender, RoutedEventArgs e, Frame mainFrame)
         {
             MessageBox.Show("Clicked on button 3");
         }
-        public void ZnamkyRozvrh(object sender, RoutedEventArgs e)
+        public void ZnamkyRozvrh(object sender, RoutedEventArgs e, Frame mainFrame)
         {
-            MessageBox.Show("Clicked on button 4");
+            mainFrame.Navigate( _gradesPage ?? (_gradesPage = new GradesPage()));
         }
-        public void BurgerButton_Click(object sender, RoutedEventArgs e)
+        public void BurgerButton_Click(object sender, RoutedEventArgs e, Frame mainFrame)
         {
             // Toggle the menu's visibility with animation
             if (_isMenuCollapsed)

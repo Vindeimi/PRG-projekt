@@ -206,7 +206,7 @@
                 <TextBlock Text="Username" Style="{StaticResource OrientationTextBlock}"/>
                 <Border x:Name="BorderChange" CornerRadius="30" Background="White" Width="575" Height="80" Margin="0,0,0,50">
                     <Grid>
-                        <Image Source="/Views/Person_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
+                        <Image Source="pack://application:,,,/Assets/Icons/Person_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
                         <TextBox x:Name="UsernameTextBox" GotFocus="UsernameTextBox_GotFocus" LostFocus="UsernameTextBox_LostFocus" Style="{StaticResource TextBoxStyle}" KeyDown="TextBox_KeyDown"/>
                         <TextBlock x:Name="UsernamePlaceholderText" Text="Enter Edupage username" Style="{StaticResource PlaceholderTextBlock}" />
                     </Grid>
@@ -215,7 +215,7 @@
                 <TextBlock Text="Password" Style="{StaticResource OrientationTextBlock}"/>
                 <Border CornerRadius="30" Background="White" Width="575" Height="80">
                     <Grid>
-                        <Image Source="/Views/Lock_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
+                        <Image Source="pack://application:,,,/Assets/Icons/Lock_Icon.png" Style="{StaticResource TextBoxIconStyle}"/>
                         <PasswordBox x:Name="PasswordTextBox" GotFocus="PasswordTextBox_GotFocus" LostFocus="PasswordTextBox_LostFocus" Style="{StaticResource PasswordBoxStyle}" KeyDown="TextBox_KeyDown"/>
                         <TextBlock x:Name="PasswordPlaceholderText" Text="Enter Edupage password" Style="{StaticResource PlaceholderTextBlock}"/>
                     </Grid>
