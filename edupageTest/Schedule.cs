@@ -310,6 +310,7 @@ namespace edupageTest
 
                 Console.WriteLine(_subjectCount);
             }
+            AppContext.SubjectShortcut = SubjectShortcut;
             return _permanentSchedule;
         }
         #endregion

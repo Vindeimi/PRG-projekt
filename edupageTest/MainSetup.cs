@@ -20,27 +20,27 @@ namespace edupageTest
         private Border _menuBorder;
         private Schedule _schedule;
         private Date _date;
-        private Canvas _canvas;
+        //private Canvas _canvas;
         private Grades _grades;
 
-        public string Username, Password;
-        public bool CanLogin = false;
-        public bool LoggedIn = false;
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public bool CanLogin { get; set; }
+        public bool LoggedIn { get; set; }
 
-        public MainSetup(string username, string password, Canvas canvas )
+        public MainSetup(string username, string password/*, Canvas canvas*/ )
         {
             Username = username;
             Password = password;
-            _canvas = canvas;
+            AppContext.Setup = this;
         }
 
         public async Task SetupAsync()
         {
-            if (MainWindow.Instance != null)
-            {
-                _menuBorder = MainWindow.Instance.MenuBorder;
-            }
-
+            //if (MainWindow.Instance != null)
+            //{
+            //    _menuBorder = AppContext.MenuBorder;
+            //}
 
             await Task.Delay(500);
 
@@ -50,6 +50,7 @@ namespace edupageTest
             {
                 _driver = new DriverInitialization();
                 _driver.DriverInit();
+                AppContext.Driver = _driver;
             }
             #endregion
 
@@ -64,45 +65,45 @@ namespace edupageTest
 
             if (_login.CanLogin)
             {
-                //#region Design
+                #region Design
 
-                //_design = new Design(_menuBorder);
-                //#endregion
+                _design = new Design(AppContext.MenuBorder);
+                #endregion
 
-                //#region Rozvrh
+                #region Rozvrh
 
-                //_schedule = new Schedule(_driver);
-                //var permanentTimeTable = await Task.Run(() => _schedule.FindPermanentTimeTable());
-                //var subjectShortcut = _schedule.SubjectShortcut;
-                //#endregion
+                _schedule = new Schedule(_driver);
+                var permanentTimeTable = await Task.Run(() => _schedule.FindPermanentTimeTable());
+                var subjectShortcut = _schedule.SubjectShortcut;
+                #endregion
 
-                //#region Datum
+                #region Datum
 
-                //_date = new Date();
-                //await _date.AutoDetectRegionAsync();
-                //var holidays = _date.GetHolidays(DateTime.Now.Year);
-                //var schoolDays = _date.GetSchoolDays(DateTime.Now.Year);
-                //var weeks = _date.GetWeekType(DateTime.Now.Year);
-                //#endregion
+                _date = new Date();
+                await _date.AutoDetectRegionAsync();
+                var holidays = _date.GetHolidays(DateTime.Now.Year);
+                var schoolDays = _date.GetSchoolDays(DateTime.Now.Year);
+                var weeks = _date.GetWeekType(DateTime.Now.Year);
+                #endregion
 
-                //#region Attendance
+                #region Attendance
 
-                //_attendance = new Attendance(_driver);
-                //Dictionary<string, AttendanceRecords> attendanceData = _attendance.FindAttendance();
-                //var absenceLimit = _attendance.CalculateAbsenceLimits(permanentTimeTable, weeks);
-                //#endregion
+                _attendance = new Attendance(_driver);
+                Dictionary<string, AttendanceRecords> attendanceData = _attendance.FindAttendance();
+                var absenceLimit = _attendance.CalculateAbsenceLimits(permanentTimeTable, weeks);
+                #endregion
 
-                //#region Graf
+                #region Graf
 
-                //_graph = new Graph(attendanceData, _attendance.SemesterType, _canvas, subjectShortcut);
-                //Thread.Sleep(300);
-                //_graph.DrawMainMenuGraph();
-                //#endregion
+                _graph = new Graph(attendanceData, _attendance.SemesterType, AppContext.GraphCanvas, subjectShortcut);
+                Thread.Sleep(300);
+                _graph.DrawMainMenuGraph();
+                #endregion
 
                 #region Známky
 
                 _grades = new Grades(_driver);
-                var grades = _grades.FindGrades();
+                AppContext.Grades = _grades.FindGrades();
                 #endregion
             }
             CanLogin = _login.CanLogin;
