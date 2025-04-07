@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -91,5 +92,34 @@ namespace edupageTest
         public string Subject { get; set; }
         public string Grades { get; set; }
         public string Diameter { get; set; }
+        public int RoundedDiameter
+        {
+            get
+            {
+                string normalized = Diameter?.Replace(',', '.') ?? "0";
+
+                if (normalized.Contains("%"))
+                {
+                    return GradeDisplayItem.RoundedGrade(GradeDisplayItem.CalculateDiameter(double.Parse(normalized.Replace("%", ""), NumberStyles.Any, CultureInfo.InvariantCulture)));
+                }
+
+                if (double.TryParse(normalized, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                {
+                    return (int)Math.Round(result);
+                }
+
+                return 0;
+            }
+        }
+
+        public Brush DiameterBrush => RoundedDiameter switch
+        {
+            1 => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#77DD77")), // zelená
+            2 => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FDFD96")), // žlutá
+            3 => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF964F")), // oranžová
+            4 => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF6C64")), // červená
+            5 => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#800000")), // tmavě červená
+            _ => new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F7F9F9")), // bílá
+        };
     }
 }

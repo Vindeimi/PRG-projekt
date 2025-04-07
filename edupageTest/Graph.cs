@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows;
 using System.Windows.Shapes;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace edupageTest
 {
@@ -17,7 +18,7 @@ namespace edupageTest
         private Dictionary<string, AttendanceRecords> _attendanceData;
         private int _semesterType;
         private List<System.Windows.Shapes.Rectangle> _rectangleList = new();
-        private Canvas _graphCanvas;
+        public static Canvas GraphCanvas { get; set; }
         private Dictionary<string, string> _subjectShortcuts;
 
         private double _maxHeight = 425;
@@ -29,16 +30,16 @@ namespace edupageTest
         {
             _attendanceData = attendanceData;
             _semesterType = semesterType;
-            _graphCanvas = canvas;
+            GraphCanvas = canvas;
             _subjectShortcuts = subjectShortcuts;
         }
 
         public void DrawMainMenuGraph()
         {
-            if (_graphCanvas.ActualWidth <= 0 || _graphCanvas.ActualHeight <= 0)
+            if (GraphCanvas.ActualWidth <= 0 || GraphCanvas.ActualHeight <= 0)
             {
                 // Čekání na načtení canvasu
-                _graphCanvas.Loaded += (sender, e) =>
+                GraphCanvas.Loaded += (sender, e) =>
                 {
                     this.DrawMainMenuGraph();
                 };
@@ -49,14 +50,21 @@ namespace edupageTest
         }
         private void DrawGraphContent()
         {
-            double canvasWidth = _graphCanvas.ActualWidth;
-            double canvasHeight = _graphCanvas.ActualHeight;
+
+            double canvasWidth = GraphCanvas.ActualWidth;
+            double canvasHeight = GraphCanvas.ActualHeight;
 
             // Výpočet pozic pro čáry
             double totalWidthOfBars = _width * _numBars;
             double totalSpacing = canvasWidth - totalWidthOfBars;
             double spacing = totalSpacing / (_numBars + 1);
 
+            if (GraphCanvas == AppContext.GradesCanvas)
+            {
+                _numBars = _attendanceData.Count;
+                _maxHeight = GraphCanvas.ActualHeight;
+                GraphCanvas.Width = _numBars * _width + (_numBars + 1) * spacing;
+            }
             double line30_Y = _maxHeight - (1 + _scale * _maxHeight * 0.30);
             double line20_Y = _maxHeight - (1 + _scale * _maxHeight * 0.20);
 
@@ -67,7 +75,7 @@ namespace edupageTest
             Line line30 = new Line
             {
                 X1 = 0,
-                X2 = 500,
+                X2 = Math.Min(canvasWidth, 1125),
                 Y1 = line30_Y,
                 Y2 = line30_Y,
                 Stroke = Brushes.Black,
@@ -78,7 +86,7 @@ namespace edupageTest
             Line line20 = new Line
             {
                 X1 = 0,
-                X2 = 500,
+                X2 = Math.Min(canvasWidth, 1125),
                 Y1 = line20_Y,
                 Y2 = line20_Y,
                 Stroke = Brushes.Black,
@@ -118,15 +126,29 @@ namespace edupageTest
             Canvas.SetLeft(textBlock20, 5);
 
 
-            _graphCanvas.Children.Add(textBlock30);
-            _graphCanvas.Children.Add(textBlock20);
-            _graphCanvas.Children.Add(line30);
-            _graphCanvas.Children.Add(line20);
+            if (GraphCanvas == AppContext.GradesCanvas)
+            {
+
+                // Přidání čar do overlayCanvas
+                AppContext.AttendanceOverlayCanvas?.Children.Add(line30);
+                AppContext.AttendanceOverlayCanvas?.Children.Add(line20);
+                AppContext.AttendanceOverlayCanvas?.Children.Add(textBlock30);
+                AppContext.AttendanceOverlayCanvas?.Children.Add(textBlock20);
+            }
+            else
+            {
+                GraphCanvas.Children.Add(textBlock30);
+                GraphCanvas.Children.Add(textBlock20);
+                GraphCanvas.Children.Add(line30);
+                GraphCanvas.Children.Add(line20);
+            }
+
             #endregion
 
             #region Vytvoření Default Sloupců   
+            _rectangleList.Clear();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < _numBars; i++)
             {
                 var rect = new System.Windows.Shapes.Rectangle
                 {
@@ -176,9 +198,12 @@ namespace edupageTest
                 Canvas.SetBottom(rect, 0);
 
                 Canvas.SetLeft(textBlock,leftPositionRect + (_width / 2) - 10);
-                Canvas.SetBottom(textBlock, 10);
-                _graphCanvas.Children.Add(rect);
-                _graphCanvas.Children.Add(textBlock);
+                Canvas.SetBottom(textBlock, 10);    
+
+                Panel.SetZIndex(textBlock, 7);
+
+                GraphCanvas.Children.Add(rect);
+                GraphCanvas.Children.Add(textBlock);
             }
             #endregion
 
