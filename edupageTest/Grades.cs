@@ -11,22 +11,162 @@ using System.Security.AccessControl;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Windows.Media;
 
 namespace edupageTest
 {
-    internal class Grades
+    public class GradeDisplayItem : INotifyPropertyChanged
+    {
+        private string _subject;
+        private string _diameter;
+
+        public string Subject
+        {
+            get => _subject;
+            set
+            {
+                _subject = value;
+                OnPropertyChanged(nameof(Subject));
+            }
+        }
+
+        public string Diameter
+        {
+            get => _diameter;
+            set
+            {
+                _diameter = value;
+                OnPropertyChanged(nameof(Diameter));
+                OnPropertyChanged(nameof(RoundedDiameter));
+            }
+        }
+
+        public int RoundedDiameter
+        {
+            get
+            {
+                string normalized = Diameter?.Replace(',', '.') ?? "0";
+
+                if(normalized.Contains("%"))
+                {
+                    return RoundedGrade(CalculateDiameter(double.Parse(normalized.Replace("%", ""), NumberStyles.Any, CultureInfo.InvariantCulture)));
+                }
+                if (double.TryParse(normalized, NumberStyles.Any, CultureInfo.InvariantCulture, out double result))
+                {
+                    return (int)Math.Round(result);
+                }
+                return 0;
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+
+        public static double CalculateDiameter(double percentage)
+        {
+            if (percentage >= 90.0)
+                return 1.0;
+            else if (percentage >= 75.0)
+                return 1.5 + (percentage - 75.0) / 15.0; // 75-89.99% → 1.5-2.499...
+            else if (percentage >= 50.0)
+                return 2.5 + (percentage - 50.0) / 25.0; // 50-74.99% → 2.5-3.499...
+            else if (percentage >= 30.0)
+                return 3.5 + (percentage - 30.0) / 20.0; // 30-49.99% → 3.5-4.499...
+            else
+                return 4.5 + percentage / 30.0 * 0.5;    // 0-29.99% → 4.5-5.0
+        }
+
+        public static int RoundedGrade(double diameter)
+        {
+            return (int)Math.Round(diameter, MidpointRounding.AwayFromZero);
+        }
+
+
+    }
+    public class Grades:INotifyPropertyChanged
     {
         private readonly DriverInitialization _driverInitialization;
-
         private List<KeyValuePair<string, GradeRecords>> _gradeRecords = new();
         private List<string> _degugList = new();
         private List<string> _degugList1 = new();
         private List<string> _degugList2 = new();
         private List<string> _degugList3 = new();
 
-        public Grades(DriverInitialization driverInitialization)
+
+        #region MVVM
+        public ObservableCollection<GradeDisplayItem> _gradesDisplay;
+        public ObservableCollection<GradeDisplayItem> GradesDisplay
         {
-            _driverInitialization = driverInitialization;
+            get => _gradesDisplay;
+            set
+            {
+                _gradesDisplay = value;
+                OnPropertyChanged(nameof(GradesDisplay));
+            }
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public ObservableCollection<GradeDisplayItem> LoadGrades()
+        {
+            GradesDisplay.Clear();
+
+            var filteredGrades = _gradeRecords
+                .Where(g => !g.Key.Equals("chování", StringComparison.OrdinalIgnoreCase) &&
+                             !g.Key.Equals("chovani", StringComparison.OrdinalIgnoreCase))
+                .Take(4)
+                .ToList();
+
+            for (int i = 0; i < filteredGrades.Count; i++)
+            {
+                string subject;
+                if (AppContext.SubjectShortcut != null && AppContext.SubjectShortcut.TryGetValue(filteredGrades[i].Key, out subject))
+                {
+                    Console.WriteLine(subject); // normální předmět
+                }
+                else if (AppContext.SubjectShortcut != null && AppContext.SubjectShortcut.TryGetValue(filteredGrades[i].Key + "1", out subject))
+                {
+                    Console.WriteLine(subject); // předmět s 1
+                }
+                else if (AppContext.SubjectShortcut != null && AppContext.SubjectShortcut.TryGetValue(filteredGrades[i].Key + "2", out subject))
+                {
+                    Console.WriteLine(subject); // předmět s 2
+                }
+                else
+                {
+                    subject = filteredGrades[i].Key;
+                }
+
+                var diameter = filteredGrades[i].Value.Diameter;
+
+                GradesDisplay.Add(new GradeDisplayItem
+                {
+                    Subject = subject,
+                    Diameter = filteredGrades[i].Value.Diameter,
+                });
+            }
+            OnPropertyChanged(nameof(GradesDisplay));
+            return GradesDisplay;
+        }
+        #endregion
+
+        public Grades(/*DriverInitialization driverInitialization*/)
+        {
+            _driverInitialization = AppContext.Driver;
+            GradesDisplay = new ObservableCollection<GradeDisplayItem>();
+            _gradeRecords = FindGrades();
+            LoadGrades();
         }
 
         public List<KeyValuePair<string, GradeRecords>> FindGrades()
@@ -42,6 +182,9 @@ namespace edupageTest
 
             return ExtractGradesData();
         }
+
+
+        #region Extrakce Znamek
 
         public List<KeyValuePair<string, GradeRecords>> ExtractGradesData()
         {
@@ -204,10 +347,12 @@ namespace edupageTest
             return weights;
         }
     }
+    #endregion
+
     public class GradeRecords
     {
         public string Subject { get; set; }
         public List<KeyValuePair<string, double>> Grades { get; set; }
-        public string Diameter { get; set; }
+        public string Diameter { get; set; }        
     }
 }

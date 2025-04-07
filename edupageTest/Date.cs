@@ -190,8 +190,23 @@ namespace edupageTest
 
         public IEnumerable<DateTime> GetSchoolDays(int year)
         {
-            DateTime start = new DateTime(year-1, 9, 1);
-            DateTime end = new DateTime(year, 1, 26);
+            DateTime start = new DateTime();
+            DateTime end = new DateTime();
+            if (AppContext.SemesterType == 1)
+            {
+                start = new DateTime(year-1, 9, 1);
+                end = new DateTime(year, 1, 26);
+            }
+            else if (AppContext.SemesterType == 2)
+            {
+                start = new DateTime(year, 1, 26);
+                end = new DateTime(year, 6, 30);
+            }
+            else
+            {
+                start = new DateTime(year - 1, 9, 1);
+                end = new DateTime(year, 1, 26);
+            }
 
             var allDays = GenerateDateRange(start, end);
             var holidays = GetHolidays(year);
@@ -237,29 +252,41 @@ namespace edupageTest
 
         #region Jarni Prazdniny
 
-        private List<DateTime> GetSpringHolidays(int year) //ŠPATĚN MUSÍ SE OPRAVIT
+        private List<DateTime> GetSpringHolidays(int year)
         {
-            var holidays = new Dictionary<CzechRegion, (DateTime Start, DateTime End)>
-            {
-                [CzechRegion.Praha] = (new DateTime(year, 2, 5), new DateTime(year, 2, 11)),
-                [CzechRegion.Jihomoravsky] = (new DateTime(year, 2, 12), new DateTime(year, 2, 18)),
-                [CzechRegion.Stredocesky] = (new DateTime(year, 2, 19), new DateTime(year, 2, 25)),
-                [CzechRegion.Ustecky] = (new DateTime(year, 2, 26), new DateTime(year, 3, 4)),
-                [CzechRegion.Liberecky] = (new DateTime(year, 3, 5), new DateTime(year, 3, 11)),
-                [CzechRegion.Kralovehradecky] = (new DateTime(year, 3, 12), new DateTime(year, 3, 18)),
-                [CzechRegion.Jihocesky] = (new DateTime(year, 3, 19), new DateTime(year, 3, 25)),
-                [CzechRegion.Plzensky] = (new DateTime(year, 3, 26), new DateTime(year, 4, 1)),
-                [CzechRegion.Karlovarsky] = (new DateTime(year, 4, 2), new DateTime(year, 4, 8)),
-                [CzechRegion.Pardubicky] = (new DateTime(year, 4, 9), new DateTime(year, 4, 15)),
-                [CzechRegion.Vysocina] = (new DateTime(year, 4, 16), new DateTime(year, 4, 22)),
-                [CzechRegion.Olomoucky] = (new DateTime(year, 4, 23), new DateTime(year, 4, 29)),
-                [CzechRegion.Zlinsky] = (new DateTime(year, 4, 30), new DateTime(year, 5, 6)),
-                [CzechRegion.Moravskoslezsky] = (new DateTime(year, 5, 7), new DateTime(year, 5, 13))
-            };
+            var base2024 = new Dictionary<CzechRegion, DateTime>
+    {
+        { CzechRegion.Praha, new DateTime(2024, 2, 5) },
+        { CzechRegion.Jihomoravsky, new DateTime(2024, 2, 5) },
+        { CzechRegion.Stredocesky, new DateTime(2024, 2, 19) },
+        { CzechRegion.Ustecky, new DateTime(2024, 2, 12) },
+        { CzechRegion.Liberecky, new DateTime(2024, 2, 26) },
+        { CzechRegion.Kralovehradecky, new DateTime(2024, 2, 19) },
+        { CzechRegion.Jihocesky, new DateTime(2024, 3, 11) },
+        { CzechRegion.Plzensky, new DateTime(2024, 2, 5) },
+        { CzechRegion.Karlovarsky, new DateTime(2024, 2, 12) },
+        { CzechRegion.Pardubicky, new DateTime(2024, 3, 11) },
+        { CzechRegion.Vysocina, new DateTime(2024, 2, 26) },
+        { CzechRegion.Olomoucky, new DateTime(2024, 3, 4) },
+        { CzechRegion.Zlinsky, new DateTime(2024, 2, 19) },
+        { CzechRegion.Moravskoslezsky, new DateTime(2024, 2, 12) }
+    };
 
-            return holidays.TryGetValue(_region, out var dates) ? GenerateDateRange(dates.Start, dates.End).ToList() : new List<DateTime>();
+            // 1. Posun o požadovaný počet týdnů v rámci roku 2024
+            int yearDifference = year - 2024;
+            DateTime shiftedDate = base2024[_region].AddDays(yearDifference * 7);
+
+            // 2. Vytvořit datum v cílovém roce se stejným měsícem a dnem
+            DateTime targetDate = new DateTime(year, shiftedDate.Month, shiftedDate.Day);
+
+            // 3. Najít pondělí v TOMTÉŽ TÝDNU jako targetDate
+            int daysToSubtract = (targetDate.DayOfWeek == DayOfWeek.Monday) ? 0 :
+                                (targetDate.DayOfWeek - DayOfWeek.Monday + 7) % 7;
+            DateTime startDate = targetDate.AddDays(-daysToSubtract);
+
+            return GenerateDateRange(startDate, startDate.AddDays(6)).ToList();
         }
-        #endregion
+
 
         // Generuje rozsah data
         private static IEnumerable<DateTime> GenerateDateRange(DateTime start, DateTime end)
@@ -267,6 +294,7 @@ namespace edupageTest
             for (DateTime date = start; date <= end; date = date.AddDays(1))
                 yield return date;
         }
+        #endregion
 
 
         #region Ostatni Prazdniny
