@@ -17,14 +17,16 @@ using System.Windows.Media.Animation;
 using OpenQA.Selenium.Remote;
 using System.IO;
 using System.Diagnostics;
+using OpenQA.Selenium.DevTools.V131.Browser;
 
 namespace edupageTest
 {
-    internal class DriverInitialization
+    internal class DriverInitialization : IDisposable
     {
         private IWebDriver _driver;
         private WebDriverWait _wait;
         private EdgeOptions _edgeOption;
+        private Process _process;
 
         public IWebDriver Driver => _driver;
         public WebDriverWait Wait => _wait;
@@ -142,7 +144,7 @@ namespace edupageTest
             switch (options)
             {
                 case FirefoxOptions firefoxOptions:
-                    //firefoxOptions.AddArgument("--headless"); 
+                    //firefoxOptions.AddArgument("--headless");
                     var firefoxService = FirefoxDriverService.CreateDefaultService();
                     //firefoxService.HideCommandPromptWindow = true;
                     return new FirefoxDriver(firefoxService, firefoxOptions);
@@ -184,6 +186,31 @@ namespace edupageTest
                 _driver.Quit();
                 _driver.Dispose();
                 _driver = null;
+            }
+        }
+
+        public void Dispose()
+        {
+            try
+            {
+                _driver?.Quit();
+                _driver?.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error quitting driver: {ex.Message}");
+            }
+
+            try
+            {
+                if (_process != null && !_process.HasExited)
+                {
+                    _process.Kill();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error killing browser process: {ex.Message}");
             }
         }
         #endregion
