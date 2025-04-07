@@ -10,7 +10,12 @@ namespace edupageTest
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
-    {    
+    {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            AppContext.Setup?.Dispose();
+            base.OnExit(e);
+        }
     }
 
 }

@@ -1,0 +1,251 @@
+﻿<Page x:Class="edupageTest.Views.AttendancePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:edupageTest.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="1080" d:DesignWidth="1920"
+      Title="AttendancePage">
+
+    <Page.Resources>
+        <Style x:Key="CustomThumbStyle" TargetType="{x:Type Thumb}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Thumb}">
+                        <Border 
+                    Background="White"
+                    CornerRadius="8"
+                    Height="13"
+                    MinWidth="15"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    Margin="2,0"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!-- Styl pro ScrollBar -->
+        <Style x:Key="HorizontalScrollBarStyle" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Height" Value="25"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                        <Grid Margin="8,0,8,0">
+                            <!-- Track background -->
+                            <Rectangle 
+                        Fill="#8E8E8E" 
+                        Height="20"
+                        VerticalAlignment="Center" 
+                        RadiusX="8" 
+                        RadiusY="8"/>
+
+                            <Track x:Name="PART_Track">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Width="0" Height="0"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Width="0" Height="0"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb Style="{StaticResource CustomThumbStyle}"/>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!-- Styl pro ScrollViewer -->
+        <Style x:Key="CustomScrollViewerStyle" TargetType="{x:Type ScrollViewer}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ScrollViewer}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="25"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Obsah -->
+                            <ScrollContentPresenter Grid.Row="0"/>
+
+                            <!-- Scrollbar -->
+                            <ScrollBar x:Name="PART_HorizontalScrollBar"
+                               Grid.Row="1"
+                               Style="{StaticResource HorizontalScrollBarStyle}"
+                               Orientation="Horizontal"
+                               Minimum="0"
+                               Maximum="{TemplateBinding ScrollableWidth}"
+                               ViewportSize="{TemplateBinding ViewportWidth}"
+                               Value="{TemplateBinding HorizontalOffset}"
+                               Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BorderButtonStyle" TargetType="Border">
+            <Setter Property="Background" Value="#2D3436" />
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="CornerRadius" Value="30"/>
+            <Setter Property="Width" Value="235"/>
+            <Setter Property="Height" Value="70"/>
+            <Setter Property="Margin" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#B8E1F3"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SubmitButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="45"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                    VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="Transparent"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <!-- Template pro předmět -->
+        <DataTemplate x:Key="SubjectItemTemplate">
+            <Grid Margin="0,0,0,60">
+                <Border Width="1170" Margin="15,0,0,0" Height="70" Background="#2D3436" CornerRadius="30">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="175" />
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Ellipse Width="20" Height="20" Fill="#B8E1F3" Grid.Column="0" HorizontalAlignment="Left" Margin="25, 0, 0, 0"/>
+                        <TextBlock Text="{Binding Subject}" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20, 0, 0, 5" FontSize="35" Foreground="#F7F9F9" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Grades}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20, 0, 0, 5" FontSize="35" Foreground="#F7F9F9" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Diameter}" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="20, 0, 0, 5" FontSize="35" Foreground="{Binding DiameterBrush}" FontWeight="Bold"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="#41484a">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="Auto" MinHeight="120"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="typeButtons" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="575,5,25,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Style="{StaticResource BorderButtonStyle}" Margin="0,0,25,0">
+                <Button Content="Overview" Style="{StaticResource SubmitButtonStyle}"/>
+            </Border>
+            <Border Grid.Column="1" Style="{StaticResource BorderButtonStyle}" Margin="0,0,25,0">
+                <Button Content="Subjects" Style="{StaticResource SubmitButtonStyle}" Click="SubjectClick"/>
+            </Border>
+            <Border Grid.Column="2" Style="{StaticResource BorderButtonStyle}">
+                <Button Content="Graph" Style="{StaticResource SubmitButtonStyle}" Click="GraphClick"/>
+            </Border>
+        </Grid>
+
+        <Grid x:Name="mainContentGrid" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="25" />
+            </Grid.ColumnDefinitions>
+
+            <Border x:Name="grades" Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="2" Width="1300" Height="805" Background="#2D3436" CornerRadius="30">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid  Grid.Row="1">
+                        <Border Width="1200" Height="711" CornerRadius="30" 
+                                Background="White" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="25"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid Grid.Row="0" Margin="30,30,25,0">
+                                    <!-- Scrollovatelný obsah -->
+                                    <ScrollViewer x:Name="scrollViewer"
+                                                  PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"
+                                                  Style="{DynamicResource CustomScrollViewerStyle}"
+                                                  HorizontalScrollBarVisibility="Visible"
+                                                  VerticalScrollBarVisibility="Disabled">   
+                                        <Canvas x:Name="gradesCanvas" 
+                                                Height="615"/>
+                                    </ScrollViewer>
+
+                                    <!-- Statický overlay pro čáry -->
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="25"/>
+                                        </Grid.RowDefinitions>
+                                        <Canvas x:Name="overlayCanvas"
+                                                IsHitTestVisible="False"
+                                                Height="{Binding ActualHeight, ElementName=gradesCanvas}"/>
+                                    </Grid>
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+
+</Page>

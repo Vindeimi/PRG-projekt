@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Navigation;
+using edupageTest.Views;
 
 namespace edupageTest
 {
@@ -17,6 +18,7 @@ namespace edupageTest
         private double originalWidth;
         private double originalHeight;
         private GradesPage _gradesPage;
+        private AttendancePage _attendancePage;
         public Design(Border menuBorder)
         {
             _menuBorder = menuBorder;
@@ -36,7 +38,7 @@ namespace edupageTest
         }
         public void DochazkaButton(object sender, RoutedEventArgs e, Frame mainFrame)
         {
-            MessageBox.Show("Clicked on button 3");
+            mainFrame.Navigate(_attendancePage ?? (_attendancePage = new AttendancePage()));
         }
         public void ZnamkyRozvrh(object sender, RoutedEventArgs e, Frame mainFrame)
         {
