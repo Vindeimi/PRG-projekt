@@ -110,46 +110,62 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Border x:Name="subjectDiameter" Grid.Column="1" Grid.Row="1" Width="675" Height="720" Background="#4B6584" CornerRadius="30">
-                <StackPanel Margin="30,30,25,25" >                    
-                    <Grid Margin="0,0,0,50">
+                <Grid Margin="30, 30, 25, 25">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0" Margin="0,0,0,50">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="Diameter" Foreground="#F7F9F9" FontSize="45" FontWeight="Bold" FontFamily="Inter" TextAlignment="Center" VerticalAlignment="Center"/>
                     </Grid>
-                    <Grid  Margin="0,0,0,60">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
-                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
-                    </Grid>
-                    <Grid  Margin="0,0,0,60">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
-                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
-                    </Grid>
-                    <Grid  Margin="0,0,0,60">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
-                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
-                    </Grid>
-                    <Grid  Margin="0,0,0,40">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0"/>
-                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0"/>
-                    </Grid>
-                    <Grid  Margin="0,0,0,50">
+                    <StackPanel Grid.Row="1" VerticalAlignment="Stretch" Margin="0,0,0,0">
+                        <ItemsControl ItemsSource="{Binding GradesDisplay}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0,0,0,40">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Width="200" Height="70" Grid.Column="0" Background="#F7F9F9" CornerRadius="30" Margin="0,0,100,0">
+                                            <TextBlock Text="{Binding Subject}" FontSize="35" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                        </Border>
+                                        <Border Width="350" Height="70" Background="#2D3436" CornerRadius="30" Grid.ColumnSpan="2" Margin="270, 0, 0, 0">
+                                            <TextBlock Text="{Binding Diameter}" FontSize="35" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Setter Property="Foreground" Value="#F7F9F9"/>
+                                                        <Style.Triggers>
+                                                            <DataTrigger Binding="{Binding RoundedDiameter}" Value="1">
+                                                                <Setter Property="Foreground" Value="#77DD77"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RoundedDiameter}" Value="2">
+                                                                <Setter Property="Foreground" Value="#FDFD96"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RoundedDiameter}" Value="3">
+                                                                <Setter Property="Foreground" Value="#FF964F"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RoundedDiameter}" Value="4">
+                                                                <Setter Property="Foreground" Value="#FF6C64"/>
+                                                            </DataTrigger>
+                                                            <DataTrigger Binding="{Binding RoundedDiameter}" Value="5">
+                                                                <Setter Property="Foreground" Value="#800000"/>
+                                                            </DataTrigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </Border>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                    <Grid Grid.Row="2" Margin="0,30,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -160,10 +176,10 @@
                         <Canvas Grid.Column="3" Margin="0,0,0,50">
                             <Ellipse Height="55" Width="55" Fill="#F7F9F9"/>
                             <Path Data="M 0,0 L 15,15 L 30 0" Stroke="Black" StrokeThickness="5" StrokeLineJoin="Round"
-                                 HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="17.5" Stretch="Fill" Width="35"/>
+                                    HorizontalAlignment="Left" VerticalAlignment="Top" Canvas.Left="10" Canvas.Top="17.5" Stretch="Fill" Width="35"/>
                         </Canvas>
                     </Grid>
-                </StackPanel>
+                </Grid>
             </Border>
 
             <Border x:Name="attendanceGraph" Grid.Column="2" Grid.Row="1" Width="675" Height="720" Background="#2d3436" CornerRadius="30">

@@ -77,8 +77,13 @@ namespace edupageTest
                 var subjectShortcut = _schedule.SubjectShortcut;
                 #endregion
 
-                #region Datum
+                #region Attendance
 
+                _attendance = new Attendance(_driver);
+                Dictionary<string, AttendanceRecords> attendanceData = _attendance.FindAttendance();
+                AppContext.SemesterType = _attendance.SemesterType;
+
+                #region Datum
                 _date = new Date();
                 await _date.AutoDetectRegionAsync();
                 var holidays = _date.GetHolidays(DateTime.Now.Year);
@@ -86,11 +91,9 @@ namespace edupageTest
                 var weeks = _date.GetWeekType(DateTime.Now.Year);
                 #endregion
 
-                #region Attendance
-
-                _attendance = new Attendance(_driver);
-                Dictionary<string, AttendanceRecords> attendanceData = _attendance.FindAttendance();
-                var absenceLimit = _attendance.CalculateAbsenceLimits(permanentTimeTable, weeks);
+                var absenceLimit = _attendance.CalculateAbsenceLimits(permanentTimeTable, weeks);                
+                AppContext.AttendanceData = attendanceData;
+                AppContext.Attendance = _attendance;
                 #endregion
 
                 #region Graf
@@ -102,12 +105,18 @@ namespace edupageTest
 
                 #region Známky
 
-                _grades = new Grades(_driver);
+                _grades = new Grades();
                 AppContext.Grades = _grades.FindGrades();
+                AppContext.GradesInt = _grades;
+                AppContext.MainWindow.DataContext = _grades;
                 #endregion
             }
             CanLogin = _login.CanLogin;
 
+        }
+        public void Dispose()
+        {
+            _driver?.Dispose();
         }
     }
 

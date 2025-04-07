@@ -36,8 +36,12 @@ namespace edupageTest
             InitializeComponent();
             //Instance = this;
             AppContext.MainWindow = this;
+            AppContext.MainFrame = MainFrame;
             AppContext.MenuBorder = menuBorder;
             AppContext.GraphCanvas = attendanceGraphCanvas;
+            //var grades = new Grades();  
+            //grades.LoadGrades();
+            //this.DataContext = grades;
             //_password = password;
             //_username = username;
 

@@ -46,6 +46,7 @@ namespace edupageTest
         private List<string> _semesterDebugList = new();
         private DateTime _today = DateTime.Now;
         public int SemesterType = 1;
+        public Dictionary<string, int> SubjectHours;
 
         public Attendance(DriverInitialization driverInitialization)
         {
@@ -208,7 +209,7 @@ namespace edupageTest
             List<PermanentScheduleInfo> permanentTimeTable,
             List<Week> schoolDays)
         {
-            Dictionary<string, int> subjectHours = new();
+            SubjectHours = new();
 
             foreach (var day in schoolDays)
             {
@@ -230,20 +231,20 @@ namespace edupageTest
                     {
                         var hours = subject.Count;
 
-                        if (subjectHours.ContainsKey(subject.Name))
+                        if (SubjectHours.ContainsKey(subject.Name))
                         {
-                            subjectHours[subject.Name] += hours;
+                            SubjectHours[subject.Name] += hours;
                         }
                         else
                         {
-                            subjectHours[subject.Name] = hours;
+                            SubjectHours[subject.Name] = hours;
                         }
                     }
                 }
             }
 
-            Console.WriteLine(subjectHours);
-            return CalculateLimits(subjectHours);
+            Console.WriteLine(SubjectHours);
+            return CalculateLimits(SubjectHours);
         }
 
         private string GetDayKey(DayOfWeek dayOfWeek, int weekType)
