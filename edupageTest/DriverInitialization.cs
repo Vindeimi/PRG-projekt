@@ -115,7 +115,7 @@ namespace edupageTest
                         };
                         Process.Start(psi);
 
-                        // Počkat, než se Edge zapne
+                        // Počkat než se Edge zapne
                         System.Threading.Thread.Sleep(3000);
 
                         // Připojit se k němu přes Selenium
